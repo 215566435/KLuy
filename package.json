@@ -1,0 +1,28 @@
+{
+  "name": "kluy",
+  "version": "0.0.1",
+  "description": "a project for learning nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/215566435/KLuy.git"
+  },
+  "keywords": [
+    "koa",
+    "koa2",
+    "nodejs",
+    "javascript"
+  ],
+  "author": "ZhengFang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/215566435/KLuy/issues"
+  },
+  "homepage": "https://github.com/215566435/KLuy#readme",
+  "dependencies": {
+    "koa": "^2.4.1"
+  }
+}

@@ -4,7 +4,8 @@
   "description": "a project for learning nodejs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./node_modules/nodemon/bin/nodemon.js",
+    "dev": "tsc && node build/app.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,12 @@
   },
   "homepage": "https://github.com/215566435/KLuy#readme",
   "dependencies": {
-    "koa": "^2.4.1"
+    "@types/koa-router": "^7.0.27",
+    "koa": "^2.4.1",
+    "koa-router": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.5.1",
+    "nodemon": "^1.12.7"
   }
 }

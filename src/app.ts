@@ -4,14 +4,30 @@ import * as router from 'koa-router';
 let app: koa = new koa();
 let route: router = new router();
 
-function things(i: number, g: number): number {
-    console.log('好玩')
-    return i
+function log(fun: Function): Function {
+
+    function decorator() {
+        fun()
+    }
+
+    return decorator
 }
 
-route.get('/', (ctx: koa.Context, next) => {
-    things(1, 2);
-    ctx.response.body='<h1>asdasd</h1>'
+class Foo {
+    @log
+    someMethod() { }
+}
+
+
+route.use('/', async (ctx, next) => {
+    console.log('跑了中间件')
+    await next()
+    console.log('回来了')
+})
+route.get('/', async (ctx: koa.Context, next) => {
+    // things(1, 2);
+    console.log('跑了')
+    ctx.response.body = '<h1>asdasd</h1>'
 })
 
 app

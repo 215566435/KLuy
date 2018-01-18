@@ -10,30 +10,3 @@
     left: 0;
     top: 0;
 }
-
-.container {
-    display: flex;
-    flex-flow: column nowrap;
-    /*任意改变长宽*/
-}
-
-.parent {
-    display: flex;
-    flex-flow: row nowrap;
-    flex: 1 1 0;
-    /*元素弹性*/
-    text-align: center;
-}
-
-.container .parent:first-child {
-    margin-bottom: 10px;
-}
-
-.ProgrameOverview {
-    flex: 1 1 0;
-    /*元素弹性*/
-}
-
-.parent .ProgrameOverview:first-child {
-    margin-right: 50px;
-}

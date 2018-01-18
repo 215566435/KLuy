@@ -5,9 +5,9 @@ import './ProgramOverview.less'
 export class ProgrameOverview extends React.Component {
 
     render() {
-
+        const { style } = this.props;
         return (
-            <div className='ProgrameOverview'>
+            <div className='ProgrameOverview' style={{ ...style }}>
                 <div className="img">
                     <img alt='123' src='https://www.bodybuilding.com/images/2017/november/shortcut-to-shred-overview-header-box1-830x467.jpg' />
                 </div>

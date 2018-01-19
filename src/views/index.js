@@ -39,9 +39,12 @@ export const TrainNote = () => (
             <div className='banner' >
                 <img alt='shit' src='https://www.bodybuilding.com/images/2017/november/shortcut-to-shred-1920x600-desktop.jpg' />
             </div>
-            <div style={{ background: '#fff', padding: 80, minHeight: 280, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Grid dataSet={
-                    [<ProgrameOverview {...props} />, <ProgrameOverview {...props2} />, <ProgrameOverview {...props3} />, <ProgrameOverview {...props4} />]} />
+            <div style={{ background: '#fff', minHeight: 280, display: 'flex', alignItems: 'center', justifyContent: 'center' }} className='content-container'>
+                <Grid
+                    dataSet={
+                        [<ProgrameOverview {...props} />, <ProgrameOverview {...props2} />, <ProgrameOverview {...props3} />, <ProgrameOverview {...props4} />]
+                    }
+                />
             </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>转载署名出处：方正，知乎</Footer>

@@ -1,26 +1,27 @@
-.ProgrameOverview {
-    text-align: center;
-    flex: 1 1 0;
-    .img {
-        padding: 60.15% 0 0;
-        position: relative;
-    }
-    .img>img {
-        position: absolute;
-        width: 100%;
-        left: 0;
-        top: 0;
+.class(@wd) {
+    .ProgrameOverview {
+        text-align: center;
+        flex: 1 1 0;
+        width: @wd;
+        .img {
+            padding: 60.15% 0 0;
+            position: relative;
+        }
+        .img>img {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+        }
     }
 }
 
+.class(100%);
+
 @media screen and (max-width:500px) {
-    .ProgrameOverview {
-        width: 100%;
-    }
+    .class(100%);
 }
 
 @media screen and (min-width:1000px) {
-    .ProgrameOverview {
-        width: 30%;
-    }
+    .class(30%);
 }

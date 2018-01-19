@@ -5,20 +5,17 @@ import './ProgramOverview.less'
 export class ProgrameOverview extends React.Component {
 
     render() {
-        const { style } = this.props;
+        const { style, title, subTitle, description } = this.props;
         return (
             <div className='ProgrameOverview' style={{ ...style }}>
                 <div className="img">
                     <img alt='123' src='https://www.bodybuilding.com/images/2017/november/shortcut-to-shred-overview-header-box1-830x467.jpg' />
                 </div>
                 <div className='text-content'>
-                    <h2>6 Weeks of Workouts</h2>
-                    <p>6 WORKOUTS PER WEEK / 45-60 MIN. WORKOUT</p>
+                    <h2>{title}</h2>
+                    <h4>{subTitle}</h4>
                     <br />
-                    <p>From the labs of Yale University to the most hardcore gyms in America,
-                    Jim Stoppani has devoted his entire career to the science of building muscle and burning
-                    fat. He's helped millions transform their lives, and now it's your turn!
-                    </p>
+                    <p>{description}</p>
                 </div>
             </div>
         )

@@ -1,21 +1,22 @@
 import './index.css';
-import { TrainNote } from './views/index';
 import React from 'react';
 
 import {
-    BrowserRouter as Router
+    BrowserRouter as Router,
+    Route
 } from 'react-router-dom'
 
-import {
-    Route,
-    Link
-} from 'react-router-dom'
+import { TrainNote } from './views/index';
+import { Plan } from './views/plan';
 
 export default () => {
     return (
-        <div>
+        <div className='rootWrapper'>
             <Router>
-                <Route exact path="/" component={TrainNote} />
+                <div className="router-wrapper">
+                    <Route exact path="/" component={TrainNote} />
+                    <Route path="/about" component={Plan} />
+                </div>
             </Router>
         </div>
     )

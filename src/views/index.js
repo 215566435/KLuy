@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 
 
 import './index.css';
-import { ProgrameOverview } from '../component/ProgrameOverview';
+import { ProgrameOverview, Linking } from '../component/ProgrameOverview';
 import { Grid } from '../component/Grid';
 
 
@@ -34,6 +34,7 @@ const props4 = {
     subTitle: '补剂作用只占据5%，但是心态往往比饮食还重要',
     description: "补剂主要以蛋白粉、维生素、咖啡因为主。减脂的时候，蛋白质需要摄入相对高一些，但是以中国人的饮食习惯和肉类的价格，真不如一桶蛋白粉来得实惠。咖啡因主要是能提高你在减脂期间的运动能力，以达到“少吃了也能动起来”的目的。心态非常重要，如何调整心态成为了减脂期最大的困难"
 }
+
 
 
 export const TrainNote = () => (

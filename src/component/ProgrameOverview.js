@@ -8,7 +8,7 @@ export class ProgrameOverview extends React.Component {
         const { style, title, subTitle, description } = this.props;
         return (
             <div className='ProgrameOverview' style={{ ...style }}>
-                <Link to='/about'>
+                <Link to='/plan'>
                     <div className="img">
                         <img alt='123' src='https://www.bodybuilding.com/images/2017/november/shortcut-to-shred-overview-header-box1-830x467.jpg' />
                     </div>

@@ -4,8 +4,8 @@ import { Layout } from 'antd';
 
 
 import './index.css';
-import { ProgrameOverview, Linking } from '../component/ProgrameOverview';
-import { Grid } from '../component/Grid';
+import { ProgrameOverview, Linking } from '../../component/ProgrameOverview';
+import { Grid } from '../../component/Grid';
 
 
 
@@ -37,7 +37,7 @@ const props4 = {
 
 
 
-export const TrainNote = () => (
+export const Introduction = () => (
     <Layout>
         <Header>Header</Header>
         <Content>

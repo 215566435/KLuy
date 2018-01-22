@@ -6,16 +6,16 @@ import {
     Route
 } from 'react-router-dom'
 
-import { TrainNote } from './views/index';
-import { Plan } from './views/plan';
+import { Introduction } from './views/Introduction/';
+import { Plan } from './views/Plan';
 
 export default () => {
     return (
         <div className='rootWrapper'>
             <Router>
                 <div className="router-wrapper">
-                    <Route exact path="/" component={TrainNote} />
-                    <Route path="/about" component={Plan} />
+                    <Route exact path="/" component={Introduction} />
+                    <Route path="/plan" component={Plan} />
                 </div>
             </Router>
         </div>

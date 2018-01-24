@@ -8,6 +8,7 @@ import {
 
 import { Introduction } from './views/Introduction/';
 import { Plan } from './views/Plan';
+import { TrainingOverview } from './views/TrainningOverview/index';
 
 export default () => {
     return (
@@ -16,6 +17,7 @@ export default () => {
                 <div className="router-wrapper">
                     <Route exact path="/" component={Introduction} />
                     <Route path="/plan" component={Plan} />
+                    <Route path="/trainingoverview" component={TrainingOverview} />
                 </div>
             </Router>
         </div>

@@ -3,7 +3,7 @@ import React from 'react';
 import './index.less'
 import { Grid } from '../Grid';
 
-export const ExerciseCell = ({ index, name, description }) => {
+export const ExerciseCell = ({ index, name, count, description }) => {
 
     return (
         <div className='ExerciseCell'>
@@ -13,6 +13,7 @@ export const ExerciseCell = ({ index, name, description }) => {
                 </div>
                 <div>
                     <h3>{name}</h3>
+                    <h4>{count}</h4>
                     <p>{description}</p>
                 </div>
             </div>

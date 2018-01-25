@@ -19,7 +19,7 @@ export class DetailLayout extends React.Component {
                             {Side}
                         </div>
                     </Sider>
-                    <Layout style={{ padding: '24px 24px 24px' }}>
+                    <Layout style={{ padding: '24px 24px 24px', marginLeft: 320 }}>
                         <Content style={{ padding: 24, marginTop: 64, minHeight: 280 }}>
                             {Contents}
                         </Content>

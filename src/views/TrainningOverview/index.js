@@ -3,10 +3,11 @@ import Showdown from 'showdown';
 
 import { DetailLayout } from '../../component/Layout/index';
 import { Paper } from '../../component/paper/index';
+var fileContent = require("./plan.md");
 
 export const TrainingOverview = () => {
 
-    const st = '#hello, markdown!'
+    const st = fileContent
     const converter = new Showdown.Converter(),
         html = converter.makeHtml(st);
     return (
@@ -14,63 +15,12 @@ export const TrainingOverview = () => {
             Side={
                 <ol>
                     <li><a href="#405">点击跳转</a></li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
                 </ol>
             }
             Contents={
                 <Paper>
                     <div>
                         <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-                        <div dangerouslySetInnerHTML={{ __html: html }} ></div>
-
-                        <div id='405'>asdasdasdasd</div>
                     </div>
                 </Paper>
             }

@@ -16,7 +16,7 @@ export const Introduction = () => (
                 <div className='article-area'>
                     <ArticleBlock content={'asdas'} title={'如何学习React'} time={'2018-10-30'} />
                 </div>
-                <RecentArea path='/plan/1233' />
+                <RecentArea path='/trainingoverview'/>
             </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>转载署名出处：方正，知乎</Footer>

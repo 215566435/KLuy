@@ -1,12 +1,13 @@
 import React from 'react';
 import Showdown from 'showdown';
-import { Layout, Button, Input } from 'antd';
+import { Layout } from 'antd';
 import { Paper } from '../../component/paper/index';
 
 import './index.less'
 import { CommentCard } from '../../component/CommentCard/index';
+import { CommentForm } from '../../component/CommentForm/index';
 
-const { TextArea } = Input;
+
 const { Header, Footer, Content } = Layout;
 var fileContent = require("./plan.md");
 
@@ -27,13 +28,7 @@ export const TrainingOverview = () => {
                     </Paper>
                     <Paper>
                         <div>
-                            <div>
-                                <div style={{ marginBottom: 22 }}>留言</div>
-                                <TextArea placeholder="说一说你对本文的评价吧～" autosize={{ minRows: 4, maxRows: 16 }} />
-                                <div style={{ marginTop: 22 }}>
-                                    <Button type="primary" style={{ float: 'right' }} >提交留言</Button>
-                                </div>
-                            </div>
+                            <CommentForm />
                             <div style={{ marginTop: 100, borderTop: '1px solid #d9d9d9' }}>
                                 <CommentCard />
                             </div>

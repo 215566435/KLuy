@@ -5,8 +5,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 Rluy.init();
-// Rluy.router(require('./router'));
-Rluy.JsxElement = require('./router').default();
+Rluy.router(require('./router'));
 Rluy.run(document.getElementById('root'));
 
 registerServiceWorker();

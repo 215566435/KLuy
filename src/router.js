@@ -16,7 +16,7 @@ export default () => {
             <Router>
                 <div className="router-wrapper">
                     <Route exact path="/" component={Introduction} />
-                    <Route path="/plan" component={Plan} />
+                    <Route path="/plan/:id" component={Plan} />
                     <Route path="/trainingoverview" component={TrainingOverview} />
                 </div>
             </Router>

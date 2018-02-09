@@ -13,12 +13,25 @@ import 'react-quill/dist/quill.snow.css'; // ES6
 class Editors extends React.Component {
     state = { text: '' }
     handleChange = (value) => {
-        this.setState({ text: value })
-        this.props.dispatch({ type: 'd', payload: value })
+        this.setState({ text: value });
+    }
+    handleClick = () => {
+        fetch('http://127.0.0.1:7001/article', {
+            method: 'POST',
+            body: JSON.stringify({ 'text': this.state.text }),
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        }).then((res) => {
+
+            console.log(res.body)
+
+        })
     }
     componentDidMount() {
         this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
     }
+
 
     render() {
         return (
@@ -34,7 +47,7 @@ class Editors extends React.Component {
                         onChange={this.handleChange}
                     >
                     </ReactQuill>
-                    <Button type="primary" style={{ marginTop: 22 }} >提交</Button>
+                    <Button type="primary" style={{ marginTop: 22 }} onClick={this.handleClick}>提交</Button>
                 </div>
             </Paper>
         )

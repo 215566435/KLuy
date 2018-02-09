@@ -60,7 +60,7 @@ export default () => {
                             </div>
                         </Layout>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>转载署名出处：方正，知乎</Footer>
+                    <Footer style={{ textAlign: 'center' }}>方正，知乎</Footer>
                 </Layout>
             </Router>
         </div>

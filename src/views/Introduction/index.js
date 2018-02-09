@@ -10,8 +10,20 @@ const { Header, Footer, Content } = Layout;
 
 
 class Intro extends React.Component {
-    componentDidMount() {
+    componentWillMount() {
         this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
+    }
+    componentDidMount() {
+        this.props.dispatch({ type: 'fetchArticle', payload: 0 })
+    }
+    renderArticleList = () => {
+        if (this.props.articleList) {
+            return this.props.articleList.map((item) => {
+                return (
+                    <ArticleBlock key={item.id} content={item.content} title={item.title} time={item.updated_at} />
+                )
+            })
+        }
     }
 
     render() {
@@ -20,7 +32,7 @@ class Intro extends React.Component {
                 <Content>
                     <div className='indexPage' style={{ minHeight: '70vh' }}>
                         <div className='article-area'>
-                            <ArticleBlock content={'asdas'} title={'如何学习React'} time={'2018-10-30'} />
+                            {this.renderArticleList()}
                         </div>
                         <RecentArea path='/Articles' />
                     </div>
@@ -30,4 +42,10 @@ class Intro extends React.Component {
     }
 }
 
-export const Introduction = connect()(Intro);
+const mapState = (state) => {
+    return {
+        articleList: state.intro.articleList
+    }
+}
+
+export const Introduction = connect(mapState)(Intro);

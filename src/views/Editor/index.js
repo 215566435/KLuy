@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, message } from 'antd';
 import { DetailLayout } from '../../component/Layout';
 import { Paper } from '../../component/paper/index';
 import { ExerciseCell } from '../../component/ExerciseCell/index';
@@ -11,21 +11,35 @@ import 'react-quill/dist/quill.snow.css'; // ES6
 
 
 class Editors extends React.Component {
-    state = { text: '' }
+    state = { title: '', content: '' }
     handleChange = (value) => {
-        this.setState({ text: value });
+        this.setState({ content: value });
     }
+    handleInputChange = (p) => {
+        this.setState({ title: p.target.value });
+    }
+    checkForm = (fn) => {
+        const { title, content } = this.state;
+        if (title === '') {
+            message.error("文章标题不能为空")
+            return;
+        }
+        if (content === '') {
+            message.error("文章内容不能为空");
+            return;
+        }
+        fn();
+    }
+
     handleClick = () => {
-        fetch('http://127.0.0.1:7001/article', {
-            method: 'POST',
-            body: JSON.stringify({ 'text': this.state.text }),
-            headers: {
-                "Content-Type": 'application/json'
-            }
-        }).then((res) => {
-
-            console.log(res.body)
-
+        this.checkForm(() => {
+            this.props.dispatch({
+                type: 'postArticle',
+                payload: {
+                    content: this.state.content,
+                    title: this.state.title
+                }
+            })
         })
     }
     componentDidMount() {
@@ -38,12 +52,12 @@ class Editors extends React.Component {
             <Paper>
                 <div>
                     <div style={{ marginBottom: 22 }}>
-                        <Input placeholder="文章标题" />
+                        <Input onChange={this.handleInputChange} placeholder="文章标题" />
                     </div>
                     <ReactQuill
                         placeholder='今天写点什么...'
                         style={{ minHeight: 300 }}
-                        value={this.state.text}
+                        value={this.state.content}
                         onChange={this.handleChange}
                     >
                     </ReactQuill>
@@ -51,11 +65,6 @@ class Editors extends React.Component {
                 </div>
             </Paper>
         )
-    }
-}
-const mapState = (state) => {
-    return {
-        t: state.editor.d
     }
 }
 

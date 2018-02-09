@@ -21,7 +21,7 @@ export const ArticleBlock = ({ content, title, time }) => {
                     <h2 >{title}</h2>
                     <div className='time'>{time}</div>
                 </div>
-                <div style={{ color: '#8c8c8c', fontSize: '15px' }}>{content}</div>
+                <div style={{ color: '#8c8c8c', fontSize: '15px' }} dangerouslySetInnerHTML={{ __html: content }}></div>
                 <div className='icon-block' style={{ display: 'flex' }} >
                     <IconBlock type="eye-o" Content='823' />
                     <IconBlock type="message" Content='12' />

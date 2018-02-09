@@ -16,7 +16,7 @@ export default {
 
             yield put({
                 type: 'articleList',
-                payload: a
+                payload: a.data
             })
         }
     }

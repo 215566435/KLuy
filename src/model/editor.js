@@ -5,27 +5,34 @@ export default {
     state: {},
     reducer: {
         change(state, { payload }) {
-            return { ...state, routerState: payload }
+            return { ...state, routerState: payload, isRedirect: false }
         },
-        mapID(state, { payload }) {
+        redirect(state, { payload }) {
 
-            return { ...state, d: payload }
+            return {
+                ...state,
+                redirectPath: { pathname: payload.redirectPath },
+                isRedirect: payload.isRedirect
+            }
         }
     },
     effects: {
-        *d({ put }, { payload }) {
-            yield put({
-                type: 'mapID',
-                payload
-            })
-        },
         *postArticle({ put, call }, { payload }) {
             const amanager = new ArticleManager(call);
             const res = yield amanager.postArticle('/article', {
                 title: payload.title,
                 content: payload.content
             })
-            console.log(res);
+
+            if (res.status === 'good') {
+                yield put({
+                    type: 'redirect',
+                    payload: {
+                        isRedirect: true,
+                        redirectPath: '/'
+                    }
+                })
+            }
         }
     }
 }

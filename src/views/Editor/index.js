@@ -3,6 +3,7 @@ import { Input, Button, message } from 'antd';
 import { Paper } from '../../component/paper/index';
 import ReactQuill from 'react-quill'; // ES6
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import './index.less';
 import 'react-quill/dist/quill.snow.css'; // ES6
@@ -46,6 +47,10 @@ class Editors extends React.Component {
 
 
     render() {
+        const { redirectPath, isRedirect } = this.props;
+        if (isRedirect) {
+            return <Redirect to={redirectPath} />
+        }
         return (
             <Paper>
                 <div>
@@ -67,7 +72,14 @@ class Editors extends React.Component {
 }
 
 
-export const Editor = connect()(Editors);
+const mapState = (state) => {
+    return {
+        isRedirect: state.editor.isRedirect,
+        redirectPath: state.editor.redirectPath
+    }
+}
+
+export const Editor = connect(mapState)(Editors);
 
 
 

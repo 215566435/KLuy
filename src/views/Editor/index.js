@@ -1,8 +1,6 @@
 import React from 'react';
 import { Input, Button, message } from 'antd';
-import { DetailLayout } from '../../component/Layout';
 import { Paper } from '../../component/paper/index';
-import { ExerciseCell } from '../../component/ExerciseCell/index';
 import ReactQuill from 'react-quill'; // ES6
 import { connect } from 'react-redux';
 

@@ -5,7 +5,6 @@ import { Paper } from '../../component/paper/index';
 import './index.less'
 import { CommentCard } from '../../component/CommentCard/index';
 import { CommentForm } from '../../component/CommentForm/index';
-import { DetailLayout } from '../../component/Layout/index';
 
 
 var fileContent = require("./plan.md");

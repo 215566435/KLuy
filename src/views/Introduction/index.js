@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 
 import './index.less';
 import { ArticleBlock } from '../../component/ArticleBlock';
 import { RecentArea } from '../../component/RecentArea';
 import { connect } from 'react-redux';
-const { Header, Footer, Content } = Layout;
+const { Content } = Layout;
 
 
 class Intro extends React.Component {

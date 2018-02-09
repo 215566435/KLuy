@@ -3,7 +3,7 @@ import React from 'react';
 import { Layout } from 'antd';
 
 import './index.less';
-import { ArticleBlock } from '../../component/ArticleBlock';
+import { ArticleArea } from '../../component/ArticleBlock';
 import { RecentArea } from '../../component/RecentArea';
 import { connect } from 'react-redux';
 const { Content } = Layout;
@@ -16,25 +16,15 @@ class Intro extends React.Component {
     componentDidMount() {
         this.props.dispatch({ type: 'fetchArticle', payload: 0 })
     }
-    renderArticleList = () => {
-        if (this.props.articleList) {
-            return this.props.articleList.map((item) => {
-                return (
-                    <ArticleBlock key={item.id} content={item.content} title={item.title} time={item.updated_at} />
-                )
-            })
-        }
-    }
+
 
     render() {
         return (
             <Layout>
                 <Content>
                     <div className='indexPage' style={{ minHeight: '70vh' }}>
-                        <div className='article-area'>
-                            {this.renderArticleList()}
-                        </div>
-                        <RecentArea path='/Articles' />
+                        <ArticleArea articleList={this.props.articleList} />
+                        <RecentArea articleList={this.props.articleList} />
                     </div>
                 </Content>
             </Layout>

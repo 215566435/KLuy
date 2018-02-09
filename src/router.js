@@ -8,7 +8,6 @@ import {
 
 } from 'react-router-dom'
 
-
 import { Introduction } from './views/Introduction/';
 import { Editor } from './views/Editor/index';
 import { Articles } from './views/Articles';
@@ -31,7 +30,7 @@ const Headed = ({ routerState }) => {
                 style={{ lineHeight: '64px' }}
             >
                 <Menu.Item key="1"><Link to='/'>首页</Link></Menu.Item>
-                <Menu.Item key="2"><Link to='editor'>写文章</Link></Menu.Item>
+                <Menu.Item key="2"><Link to='/editor'>写文章</Link></Menu.Item>
             </Menu>
         </Header>
     )
@@ -56,7 +55,7 @@ export default () => {
                             <div className="router-wrapper">
                                 <Route exact path="/" component={Introduction} />
                                 <Route path="/editor" component={Editor} />
-                                <Route path="/Articles" component={Articles} />
+                                <Route path="/Articles/:id" component={Articles} />
                             </div>
                         </Layout>
                     </Content>

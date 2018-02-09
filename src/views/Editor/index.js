@@ -36,7 +36,8 @@ class Editors extends React.Component {
                 type: 'postArticle',
                 payload: {
                     content: this.state.content,
-                    title: this.state.title
+                    title: this.state.title,
+                    articleID: Date.now()
                 }
             })
         })

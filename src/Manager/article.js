@@ -9,5 +9,8 @@ export class ArticleManager extends BaseManager {
     *getArticle(url) {
         return yield this.Get(url)
     }
+    *getOneArticle(url) {
+        return yield this.Get(url)
+    }
 
 }

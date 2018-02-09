@@ -19,10 +19,7 @@ export default {
     effects: {
         *postArticle({ put, call }, { payload }) {
             const amanager = new ArticleManager(call);
-            const res = yield amanager.postArticle('/article', {
-                title: payload.title,
-                content: payload.content
-            })
+            const res = yield amanager.postArticle('/article', { ...payload })
 
             if (res.status === 'good') {
                 yield put({

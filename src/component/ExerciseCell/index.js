@@ -1,7 +1,6 @@
 import React from 'react';
 
-import './index.less'
-import { Grid } from '../Grid';
+import './index.less';
 
 export const ExerciseCell = ({ index, name, count, description }) => {
 

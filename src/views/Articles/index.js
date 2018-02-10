@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Paper } from '../../component/paper/index';
 
 import './index.less'
-import { CommentCard } from '../../component/CommentCard/index';
+import { CommentArea } from '../../component/CommentCard/index';
 import { CommentForm } from '../../component/CommentForm/index';
 
 
@@ -13,18 +13,44 @@ var fileContent = require("./plan.md");
 
 
 class Article extends React.Component {
+    getArticleID() {
+        return this.props.match.params.id;
+    }
+
+
     componentDidMount() {
-        const id = this.props.match.params.id;
-        console.log(id);
+        window.scrollTo(0, 0)
+        const id = this.getArticleID();
         this.props.dispatch({
             type: 'FetchOneArticle',
             payload: id
         })
     }
+    handleSubmit = () => {
+        const text = this.FormComponent.getText();
+
+        this.props.dispatch({
+            type: 'postComment',
+            payload: { ...text, articleID: this.getArticleID() }
+        })
+
+    }
+    commentLoad = () => {
+        console.log('loadID:', this.getArticleID())
+        this.props.dispatch({
+            type: 'LoadComment',
+            payload: this.getArticleID()
+        })
+    }
+    componentWillUnmount = () => {
+        this.props.dispatch({
+            type: 'ClearComment'
+        })
+    }
 
     render() {
         return (
-            <div>
+            <div >
                 <Paper>
                     <div>
                         <h1>{this.props.title}</h1>
@@ -33,10 +59,8 @@ class Article extends React.Component {
                 </Paper>
                 <Paper>
                     <div>
-                        <CommentForm />
-                        <div style={{ marginTop: 100, borderTop: '1px solid #d9d9d9' }}>
-                            <CommentCard />
-                        </div>
+                        <CommentForm onClick={this.handleSubmit} ref={node => this.FormComponent = node} />
+                        <CommentArea Load={this.commentLoad} CommentList={this.props.CommentList} />
                     </div>
                 </Paper>
             </div>

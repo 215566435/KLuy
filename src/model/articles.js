@@ -1,4 +1,5 @@
 import { ArticleManager } from "../Manager/article";
+import { CommentManager } from "../Manager/comment";
 
 export default {
     namespace: 'articles',
@@ -7,6 +8,12 @@ export default {
         bindArticle(state, { payload }) {
 
             return { ...state, ...payload }
+        },
+        bindComments(state, { payload }) {
+            return { ...state, CommentList: payload }
+        },
+        ClearComment(state) {
+            return { ...state, CommentList: undefined }
         }
     },
     effects: {
@@ -18,6 +25,25 @@ export default {
                 type: 'bindArticle',
                 payload: res
             })
+        },
+        *postComment({ put, call }, { payload }) {
+            const cmanager = new CommentManager(call);
+            const res = yield cmanager.postComment('/comments', payload);
+
+            if (res.status === 'good') {
+                window.location.reload();
+            }
+        },
+        *LoadComment({ put, call }, { payload }) {
+            const cmanager = new CommentManager(call);
+            const res = yield cmanager.Get(`/comments/${payload}/${0}`)
+            if (res.status === 'good') {
+                console.log(res.data)
+                yield put({
+                    type: 'bindComments',
+                    payload: res.data
+                })
+            }
         }
     }
 }

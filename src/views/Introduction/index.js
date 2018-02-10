@@ -8,7 +8,6 @@ import { RecentArea } from '../../component/RecentArea';
 import { connect } from 'react-redux';
 const { Content } = Layout;
 
-
 class Intro extends React.Component {
     componentWillMount() {
         this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
@@ -16,14 +15,23 @@ class Intro extends React.Component {
     componentDidMount() {
         this.props.dispatch({ type: 'fetchArticle', payload: 0 })
     }
-
+    onPageChange = (page, pageSize) => {
+        window.scrollTo(0, 0);
+        this.props.dispatch({
+            type: 'fetchArticle',
+            payload: page - 1
+        })
+    }
 
     render() {
         return (
             <Layout>
                 <Content>
                     <div className='indexPage' style={{ minHeight: '70vh' }}>
-                        <ArticleArea articleList={this.props.articleList} />
+                        <ArticleArea
+                            {...this.props}
+                            onChange={this.onPageChange}
+                        />
                         <RecentArea articleList={this.props.articleList} />
                     </div>
                 </Content>
@@ -34,7 +42,7 @@ class Intro extends React.Component {
 
 const mapState = (state) => {
     return {
-        articleList: state.intro.articleList
+        ...state.intro
     }
 }
 

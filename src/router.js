@@ -13,6 +13,7 @@ import { Editor } from './views/Editor/index';
 import { Articles } from './views/Articles';
 import { Layout, Menu } from 'antd';
 import { connect } from 'react-redux';
+import Login from './views/Login'
 
 
 const { Header, Footer, Content } = Layout;
@@ -55,6 +56,7 @@ export default () => {
                             <div className="router-wrapper">
                                 <Route exact path="/" component={Introduction} />
                                 <Route path="/editor" component={Editor} />
+                                <Route path="/login" component={Login} />
                                 <Route path="/Articles/:id" component={Articles} />
                             </div>
                         </Layout>

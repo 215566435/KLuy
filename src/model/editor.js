@@ -1,4 +1,5 @@
 import { ArticleManager } from "../Manager/article";
+import { UserManager } from "../Manager/user";
 
 export default {
     namespace: 'editor',
@@ -17,6 +18,10 @@ export default {
         }
     },
     effects: {
+        *checkAuth({ put, call }, { payload }) {
+            const user = new UserManager(call);
+            yield user.auth();
+        },
         *postArticle({ put, call }, { payload }) {
             const amanager = new ArticleManager(call);
             const res = yield amanager.postArticle('/article', { ...payload })

@@ -13,6 +13,7 @@ class Intro extends React.Component {
         this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
     }
     componentDidMount() {
+        console.log(this.props);
         this.props.dispatch({ type: 'fetchArticle', payload: 0 })
     }
     onPageChange = (page, pageSize) => {

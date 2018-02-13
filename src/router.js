@@ -22,6 +22,9 @@ const { Header, Footer, Content } = Layout;
 
 const Headed = ({ routerState }) => {
     console.log(routerState)
+    if (!routerState) {
+        return <div />
+    }
     return (
         <Header>
             <Menu
@@ -31,7 +34,7 @@ const Headed = ({ routerState }) => {
                 style={{ lineHeight: '64px' }}
             >
                 <Menu.Item key="1"><Link to='/'>首页</Link></Menu.Item>
-                <Menu.Item key="2"><Link to='/editor'>写文章</Link></Menu.Item>
+                <Menu.Item key="2"><Link to='/login'>登陆</Link></Menu.Item>
             </Menu>
         </Header>
     )

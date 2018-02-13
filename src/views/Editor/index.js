@@ -30,6 +30,12 @@ class Editors extends React.Component {
         fn();
     }
 
+    checkAuth = () => {
+        this.props.dispatch({ type: 'checkAuth' });
+
+    }
+
+
     handleClick = () => {
         this.checkForm(() => {
             this.props.dispatch({
@@ -43,6 +49,7 @@ class Editors extends React.Component {
         })
     }
     componentDidMount() {
+        this.checkAuth();
         this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
     }
 

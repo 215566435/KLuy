@@ -16,7 +16,7 @@ const IconBlock = ({ type, Content }) => {
 }
 
 export const ArticleBlock = ({ articleID, content, title, time, commentCount, views }) => {
-
+    if (!content) content = [];
     const newContent = content.length > 140 ? content.substr(0, 140) + '<div>...</div>' : content;
 
     return (

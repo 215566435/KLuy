@@ -37,35 +37,6 @@ export const ArticleBlock = ({ articleID, content, title, time, commentCount, vi
 }
 
 
-
-export const ArticleArea2 = ({ articleList, count, onChange }) => {
-    if (articleList) {
-        const newList = articleList.map((item) => {
-            const { id, content, title, created_at, articleID, commentCount, views } = item;
-            return (
-                <ArticleBlock
-                    key={id}
-                    articleID={articleID}
-                    content={content}
-                    title={title}
-                    time={TimeCuttingHelper(created_at)}
-                    commentCount={commentCount}
-                    views={views}
-                />
-            )
-        })
-
-        return (
-            <PaginationArea
-                count={count}
-                onChange={onChange}
-                render={newList}
-            />)
-    }
-    return null
-}
-
-
 export const PaginationArea = ({ count, onChange, children }) => {
     function itemRender(current, type, originalElement) {
         if (type === 'prev') {
@@ -83,12 +54,34 @@ export const PaginationArea = ({ count, onChange, children }) => {
     )
 }
 
-const maker = () => {
 
+
+export const ArticleArea = ({ articleList, ListComponent, count, onChange }) => {
+    const ArticleList = () => {
+        if (articleList) {
+            return articleList.map((item) => {
+                const { id, content, title, created_at, articleID, commentCount, views } = item;
+                return (
+                    <ListComponent
+                        key={id}
+                        articleID={articleID}
+                        content={content}
+                        title={title}
+                        time={TimeCuttingHelper(created_at)}
+                        commentCount={commentCount}
+                        views={views}
+                    />
+                )
+            })
+        }
+        return null
+    }
     return (
-        <PaginationArea >
-            
-
+        <PaginationArea
+            count={count}
+            onChange={onChange}
+        >
+            <ArticleList />
         </PaginationArea>
     )
 }

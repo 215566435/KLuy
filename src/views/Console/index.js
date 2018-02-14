@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ArticleBlock, ArticleArea } from '../../component/ArticleBlock/index';
+import { Button, Radio } from 'antd';
 
 
 class Consoles extends React.Component {
@@ -20,13 +22,34 @@ class Consoles extends React.Component {
             })
         }
     }
+    onPageChange = () => {
+
+    }
 
     render() {
-        console.log(this.props)
+
+        const ArticleList = ({ title, articleID, time, views, commentCount }) => {
+            // console.log(props)
+            return <div>
+                {title}{`${time}->${articleID}阅读：${views}评论：${commentCount}`}
+                <Button.Group size={'default'}>
+                    <Button type="default">
+                        Backward
+                     </Button>
+                    <Button type="danger">
+                        Forward
+                    </Button>
+                </Button.Group>
+            </div>
+        }
 
         return (
             <div>
-
+                <ArticleArea
+                    {...this.props}
+                    onChange={this.onPageChange}
+                    ListComponent={ArticleList}
+                />
             </div>
         )
     }

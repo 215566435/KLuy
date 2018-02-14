@@ -21,7 +21,7 @@ export class CommentArea extends React.Component {
     }
 
     handleScroll = (e) => {
-        if (this.comment.offsetTop - 250 < window.scrollY + window.innerHeight) {
+        if (this.comment.offsetTop - 100 < window.scrollY + window.innerHeight) {
             this.load();
             window.removeEventListener('scroll', this.handleScroll);
         }

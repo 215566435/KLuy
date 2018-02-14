@@ -50,7 +50,7 @@ class Article extends React.Component {
 
     render() {
         return (
-            <div >
+            <div>
                 <Paper>
                     <div>
                         <h1>{this.props.title}</h1>

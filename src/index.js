@@ -10,6 +10,7 @@ Rluy.model(require('./model/editor'));
 Rluy.model(require('./model/introduction'));
 Rluy.model(require('./model/articles'));
 Rluy.model(require('./model/login'))
+Rluy.model(require('./model/console'))
 
 Rluy.run(document.getElementById('root'));
 

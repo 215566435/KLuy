@@ -9,6 +9,9 @@ export class ArticleManager extends BaseManager {
     *getArticle(url) {
         return yield this.Get(url)
     }
+    *deleteArticle(body) {
+        return yield this.delete('/article', body);
+    }
     *getOneArticle(url) {
         return yield this.Get(url)
     }

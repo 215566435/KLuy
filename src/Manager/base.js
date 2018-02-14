@@ -22,6 +22,23 @@ export class BaseManager {
         }
 
     }
+    *delete(url, body) {
+        try {
+            const res = yield this.call(fetch, this.domain + url, {
+                method: 'DELETE',
+                body: JSON.stringify(body),
+                headers: {
+                    "Content-Type": 'application/json',
+                    'Authorization': 'token ' + this.token
+                }
+            })
+            const json = yield res.json();
+            return json;
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 
     *fetch(url, body) {
         try {

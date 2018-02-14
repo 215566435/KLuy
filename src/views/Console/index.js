@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ArticleBlock, ArticleArea } from '../../component/ArticleBlock/index';
 import { Button, Radio } from 'antd';
-
+import './index.less';
 
 class Consoles extends React.Component {
     componentWillMount() {
@@ -25,24 +25,35 @@ class Consoles extends React.Component {
     onPageChange = () => {
 
     }
+    handleEdit = () => {
+
+    }
+    handleDelete = (articleID) => {
+        this.props.dispatch({
+            type: "deleteArticle",
+            payload: articleID
+        })
+    }
 
     render() {
 
         const ArticleList = ({ title, articleID, time, views, commentCount }) => {
-            // console.log(props)
-            return <div>
-                {title}{`${time}->${articleID}阅读：${views}评论：${commentCount}`}
-                <Button.Group size={'default'}>
-                    <Button type="default">
-                        Backward
-                     </Button>
-                    <Button type="danger">
-                        Forward
-                    </Button>
-                </Button.Group>
-            </div>
+            return (
+                <div className='article-list'>
+                    <div>
+                        <h3>{title}</h3>
+                        <div className='time'>{time}</div>
+                    </div>
+                    <div>文章ID:{articleID}</div>
+                    <div>阅读：{views}</div>
+                    <div>评论：{commentCount}</div>
+                    <Button.Group size={'default'}>
+                        <Button type="default" onClick={this.handleEdit}>修改</Button>
+                        <Button type="danger" onClick={() => this.handleDelete(articleID)}>删除</Button>
+                    </Button.Group>
+                </div>
+            )
         }
-
         return (
             <div>
                 <ArticleArea

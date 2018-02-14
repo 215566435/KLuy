@@ -77,7 +77,7 @@ export default () => {
             <Router >
                 <Layout >
                     <Apps />
-                    <Content style={{ height: '100%' }}>
+                    <Content style={{ minHeight: '90vh' }}>
                         <Layout style={{ padding: '24px 24px 24px' }}>
                             <div className="router-wrapper">
                                 <Route exact path="/" component={Introduction} />

@@ -20,11 +20,24 @@ const { Header, Footer, Content } = Layout;
 
 
 
-const Headed = ({ routerState }) => {
+const Headed = ({ routerState, token }) => {
     console.log(routerState)
     if (!routerState) {
         return <div />
     }
+    const renderItem = () => {
+        if (token) {
+            return [
+                <Menu.Item key="1"><Link to='/'>首页</Link></Menu.Item>,
+                <Menu.Item key="2"><Link to='/editor'>写文章</Link></Menu.Item>,
+            ]
+        }
+        return [
+            <Menu.Item key="1"><Link to='/'>首页</Link></Menu.Item>,
+            <Menu.Item key="2"><Link to='/login'>登陆</Link></Menu.Item>
+        ]
+    }
+
     return (
         <Header>
             <Menu
@@ -33,16 +46,17 @@ const Headed = ({ routerState }) => {
                 selectedKeys={[routerState === '/' ? '1' : '2']}
                 style={{ lineHeight: '64px' }}
             >
-                <Menu.Item key="1"><Link to='/'>首页</Link></Menu.Item>
-                <Menu.Item key="2"><Link to='/login'>登陆</Link></Menu.Item>
+                {renderItem()}
             </Menu>
         </Header>
     )
 }
 
 const mapState = (state) => {
+    console.log('路由跳转')
     return {
-        routerState: state.editor.routerState
+        routerState: state.editor.routerState,
+        token: localStorage.getItem('token')
     }
 }
 

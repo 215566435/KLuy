@@ -6,8 +6,7 @@ export class UserManager extends BaseManager {
         return yield this.fetch('/login', body)
     }
     *auth() {
-        const j = yield this.Get('/auth');
-        console.log(j);
+        return yield this.Get('/auth');
     }
 
 }

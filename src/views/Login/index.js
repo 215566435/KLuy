@@ -10,6 +10,9 @@ class NormalLoginForm extends React.Component {
     state = {
         redirect: false
     }
+    componentWillMount() {
+        this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -19,8 +22,6 @@ class NormalLoginForm extends React.Component {
                 this.props.dispatch({ type: "postLogin", payload: values });
             }
         });
-
-
     }
     render() {
         if (this.props.isLogin) {

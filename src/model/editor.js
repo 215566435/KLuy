@@ -20,7 +20,17 @@ export default {
     effects: {
         *checkAuth({ put, call }, { payload }) {
             const user = new UserManager(call);
-            yield user.auth();
+            const res = yield user.auth();
+            if (res.status === 'fail') {
+                yield put({
+                    type: 'redirect',
+                    payload: {
+                        redirectPath: '/login',
+                        isRedirect: true
+                    }
+                })
+            }
+
         },
         *postArticle({ put, call }, { payload }) {
             const amanager = new ArticleManager(call);

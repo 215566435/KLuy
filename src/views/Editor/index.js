@@ -48,9 +48,12 @@ class Editors extends React.Component {
             })
         })
     }
+    componentWillMount() {
+        this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
+    }
     componentDidMount() {
         this.checkAuth();
-        this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
+
     }
 
 

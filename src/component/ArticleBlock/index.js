@@ -36,7 +36,9 @@ export const ArticleBlock = ({ articleID, content, title, time, commentCount, vi
     )
 }
 
-export const ArticleArea = ({ articleList, count, onChange }) => {
+
+
+export const ArticleArea2 = ({ articleList, count, onChange }) => {
     if (articleList) {
         const newList = articleList.map((item) => {
             const { id, content, title, created_at, articleID, commentCount, views } = item;
@@ -53,22 +55,40 @@ export const ArticleArea = ({ articleList, count, onChange }) => {
             )
         })
 
-        function itemRender(current, type, originalElement) {
-            if (type === 'prev') {
-                return <a>前一页</a>;
-            } else if (type === 'next') {
-                return <a>后一页</a>;
-            }
-            return originalElement;
-        }
-
-
         return (
-            <div className='article-area'>
-                {newList}
-                <Pagination total={count} pageSize={5} itemRender={itemRender} onChange={onChange} />
-            </div>
-        )
+            <PaginationArea
+                count={count}
+                onChange={onChange}
+                render={newList}
+            />)
     }
-    return null;
+    return null
+}
+
+
+export const PaginationArea = ({ count, onChange, children }) => {
+    function itemRender(current, type, originalElement) {
+        if (type === 'prev') {
+            return <a>前一页</a>;
+        } else if (type === 'next') {
+            return <a>后一页</a>;
+        }
+        return originalElement;
+    }
+    return (
+        <div className='article-area'>
+            {children}
+            <Pagination total={count} pageSize={5} itemRender={itemRender} onChange={onChange} />
+        </div>
+    )
+}
+
+const maker = () => {
+
+    return (
+        <PaginationArea >
+            
+
+        </PaginationArea>
+    )
 }

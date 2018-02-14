@@ -14,22 +14,31 @@ import { Articles } from './views/Articles';
 import { Layout, Menu } from 'antd';
 import { connect } from 'react-redux';
 import Login from './views/Login'
+import Console from './views/Console';
 
 
 const { Header, Footer, Content } = Layout;
 
 
+const routerPath = {
+    '/': '1',
+    '/editor': '2',
+    '/login': '2',
+    '/console': '3'
+}
+
 
 const Headed = ({ routerState, token }) => {
     console.log(routerState)
     if (!routerState) {
-        return <div />
+        return null;
     }
     const renderItem = () => {
         if (token) {
             return [
                 <Menu.Item key="1"><Link to='/'>首页</Link></Menu.Item>,
                 <Menu.Item key="2"><Link to='/editor'>写文章</Link></Menu.Item>,
+                <Menu.Item key="3"><Link to='/console'>控制台</Link></Menu.Item>,
             ]
         }
         return [
@@ -43,7 +52,7 @@ const Headed = ({ routerState, token }) => {
             <Menu
                 theme="dark"
                 mode="horizontal"
-                selectedKeys={[routerState === '/' ? '1' : '2']}
+                selectedKeys={[routerPath[routerState]]}
                 style={{ lineHeight: '64px' }}
             >
                 {renderItem()}
@@ -75,6 +84,7 @@ export default () => {
                                 <Route path="/editor" component={Editor} />
                                 <Route path="/login" component={Login} />
                                 <Route path="/Articles/:id" component={Articles} />
+                                <Route path="/console" component={Console} />
                             </div>
                         </Layout>
                     </Content>

@@ -15,6 +15,7 @@ import { Layout, Menu } from 'antd';
 import { connect } from 'react-redux';
 import Login from './views/Login'
 import Console from './views/Console';
+import dragact from './views/Dragact';
 
 
 const { Header, Footer, Content } = Layout;
@@ -85,6 +86,7 @@ export default () => {
                                 <Route path="/login" component={Login} />
                                 <Route path="/Articles/:id" component={Articles} />
                                 <Route path="/console" component={Console} />
+                                <Route path="/dragact" component={dragact} />
                             </div>
                         </Layout>
                     </Content>

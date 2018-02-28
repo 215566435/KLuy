@@ -86,7 +86,7 @@ export default () => {
                                 <Route path="/login" component={Login} />
                                 <Route path="/Articles/:id" component={Articles} />
                                 <Route path="/console" component={Console} />
-                                <Route path="/dragact" component={dragact} />
+                                <Route path="/dragact/simple" component={dragact} />
                             </div>
                         </Layout>
                     </Content>

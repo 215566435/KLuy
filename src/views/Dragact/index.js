@@ -1,60 +1,73 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { Dragact } from 'dragact';
 
-const fakeData = [
-    { GridX: 0, GridY: 0, w: 4, h: 2, key: '0' },
-    { GridX: 0, GridY: 0, w: 4, h: 2, key: '1' },
-    { GridX: 0, GridY: 0, w: 4, h: 2, key: '2' }
-]
+import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { DragactLayout } from './layout';
+const { Header, Content, Footer, Sider } = Layout;
+const SubMenu = Menu.SubMenu;
 
-const getblockStyle = (isDragging) => {
-    return {
-        background: isDragging ? '#1890ff' : 'white',
+
+
+export default class SiderDemo extends React.Component {
+    state = {
+        collapsed: false,
+    };
+    onCollapse = (collapsed) => {
+        console.log(collapsed);
+        this.setState({ collapsed });
     }
-};
-
-class DragactDemo extends React.Component {
-
-
     render() {
-
-
         return (
-            <Dragact
-                layout={fakeData}//必填项
-                col={16}//必填项
-                width={800}//必填项
-                rowHeight={40}//必填项
-                margin={[5, 5]}//必填项
-                className='plant-layout'//必填项
-                style={{ background: '#333' }}//非必填项
-                placeholder={true}//非必填项
-            >
-                {(item, provided) => {
-                    return (
-                        <div
-                            {...provided.props}
-                            {...provided.dragHandle}
-                            style={{
-                                ...provided.props.style,
-                                ...getblockStyle(provided.isDragging)
-                            }}
+            <Layout style={{ minHeight: '100vh' }}>
+                <Sider
+                    collapsible
+                    collapsed={this.state.collapsed}
+                    onCollapse={this.onCollapse}
+                >
+                    <div className="logo" />
+                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+                        <Menu.Item key="1">
+                            <Icon type="pie-chart" />
+                            <span>Option 1</span>
+                        </Menu.Item>
+                        <Menu.Item key="2">
+                            <Icon type="desktop" />
+                            <span>Option 2</span>
+                        </Menu.Item>
+                        <SubMenu
+                            key="sub1"
+                            title={<span><Icon type="user" /><span>User</span></span>}
                         >
-                            {provided.isDragging ? '正在抓取' : '停放'}
+                            <Menu.Item key="3">Tom</Menu.Item>
+                            <Menu.Item key="4">Bill</Menu.Item>
+                            <Menu.Item key="5">Alex</Menu.Item>
+                        </SubMenu>
+                        <SubMenu
+                            key="sub2"
+                            title={<span><Icon type="team" /><span>Team</span></span>}
+                        >
+                            <Menu.Item key="6">Team 1</Menu.Item>
+                            <Menu.Item key="8">Team 2</Menu.Item>
+                        </SubMenu>
+                        <Menu.Item key="9">
+                            <Icon type="file" />
+                            <span>File</span>
+                        </Menu.Item>
+                    </Menu>
+                </Sider>
+                <Layout>
+                    <Header style={{ background: '#fff', padding: 0 }} />
+                    <Content style={{ margin: '0 16px' }}>
+
+                        <div style={{ padding: 24, marginTop: 24, minHeight: 360 }}>
+                            <DragactLayout />
                         </div>
-                    )
-                }}
-            </Dragact>
-        )
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}>
+                        Ant Design ©2016 Created by Ant UED
+          </Footer>
+                </Layout>
+            </Layout>
+        );
     }
 }
-
-const mapState = (state) => {
-    return {
-        ...state.intro
-    }
-}
-
-export default connect(mapState)(DragactDemo)

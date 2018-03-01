@@ -32,7 +32,7 @@ class NormalLoginForm extends React.Component {
         return (
             <div className='loginWrapper' >
                 <div className='formPage'>
-                    <h1 style={{ textAlign: "center" }}>Burn.js</h1>
+                    <div style={{ textAlign: "center", fontSize: 15 }}>训记</div>
                     <Form onSubmit={this.handleSubmit} className="login-form">
                         <FormItem>
                             {getFieldDecorator('userName', {

@@ -32,7 +32,7 @@ class NormalLoginForm extends React.Component {
         return (
             <div className='loginWrapper' >
                 <div className='formPage'>
-                    <div style={{ textAlign: "center", fontSize: 15 }}>训记</div>
+                    <div style={{ textAlign: "center", fontSize: 22, marginBottom: 22 }}>训记</div>
                     <Form onSubmit={this.handleSubmit} className="login-form">
                         <FormItem>
                             {getFieldDecorator('userName', {
@@ -50,7 +50,7 @@ class NormalLoginForm extends React.Component {
                         </FormItem>
                         <FormItem>
                             <Button type="primary" htmlType="submit" className="login-form-button">
-                                Log in
+                                登录
                         </Button>
                         </FormItem>
                     </Form>
@@ -61,7 +61,6 @@ class NormalLoginForm extends React.Component {
 }
 
 const mapState = (state) => {
-    console.log(state.user)
     return {
         ...state.user
     }

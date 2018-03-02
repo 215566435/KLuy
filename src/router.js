@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 
 import { Introduction } from './views/Introduction/';
-import { Editor } from './views/Editor/index';
+import Editor from './views/Editor/index';
 import { Articles } from './views/Articles';
 import { Layout, Menu } from 'antd';
 import { connect } from 'react-redux';
@@ -20,12 +20,21 @@ import Console from './views/Console';
 const { Header, Footer, Content } = Layout;
 
 
-const routerPath = {
-    '/': '1',
-    '/editor': '2',
-    '/login': '2',
-    '/console': '3'
+const routerPath = (string) => {
+    const url = {
+        '/': '1',
+        '/workout': '2',
+        '/login': '4',
+        '/console': '3'
+    }
+    const i = string.indexOf('workout');
+    if (i >= 0) {
+        return '2';
+    }
+
+    return url[string] + '';
 }
+
 
 
 const Headed = ({ routerState, token }) => {
@@ -37,8 +46,8 @@ const Headed = ({ routerState, token }) => {
         if (token) {
             return [
                 <Menu.Item key="1"><Link to='/'>首页</Link></Menu.Item>,
-                <Menu.Item key="2"><Link to='/editor'>写文章</Link></Menu.Item>,
-                <Menu.Item key="3"><Link to='/console'>控制台</Link></Menu.Item>,
+                <Menu.Item key="2"><Link to='/workout/about'>记录</Link></Menu.Item>,
+                <Menu.Item key="3" ><Link to='/console'>控制台</Link></Menu.Item>,
             ]
         }
         return [
@@ -47,22 +56,30 @@ const Headed = ({ routerState, token }) => {
         ]
     }
 
+    const headerHeight = '48px';
     return (
-        <Header>
+        <Header style={{ height: headerHeight, display: 'flex', justifyContent: 'space-between' }}>
             <Menu
                 theme="dark"
                 mode="horizontal"
-                selectedKeys={[routerPath[routerState]]}
-                style={{ lineHeight: '64px' }}
+                selectedKeys={[routerPath(routerState)]}
+                style={{ lineHeight: headerHeight }}
             >
                 {renderItem()}
+            </Menu>
+            <Menu
+                theme="dark"
+                mode="horizontal"
+                selectedKeys={[routerPath(routerState)]}
+                style={{ lineHeight: headerHeight }}
+            >
+                <Menu.Item key="4"><Link to='/login'>登陆</Link></Menu.Item>
             </Menu>
         </Header>
     )
 }
 
 const mapState = (state) => {
-    console.log('路由跳转')
     return {
         routerState: state.editor.routerState,
         token: localStorage.getItem('token')
@@ -81,7 +98,7 @@ export default () => {
                         <Layout style={{ padding: '24px 24px 24px' }}>
                             <div className="router-wrapper">
                                 <Route exact path="/" component={Introduction} />
-                                <Route path="/editor" component={Editor} />
+                                <Route path="/workout/:id" component={Editor} />
                                 <Route path="/login" component={Login} />
                                 <Route path="/Articles/:id" component={Articles} />
                                 <Route path="/console" component={Console} />

@@ -1,5 +1,34 @@
+@import url('../../less/paperbase.less');
 .ql-editor {
     max-height: 550px;
     min-height: 300px;
     overflow-y: scroll;
+}
+
+.log-wrapper {
+    display: flex;
+    .log-paper {
+        width: 750px;
+    }
+}
+
+.log-menu-warpper {
+    &:extend(.paperbase);
+    min-width: 200px;
+}
+
+.CategoryItem {
+    &:extend(.paperbase);
+    cursor: pointer;
+}
+
+.exercise-row {
+    &:hover {
+        background: #e6f7ff;
+    }
+    padding: 8px;
+    transition: all 0.5s;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
 }

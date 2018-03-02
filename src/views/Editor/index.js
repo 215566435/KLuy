@@ -1,53 +1,108 @@
 import React from 'react';
-import { Input, Button, message } from 'antd';
+import { Button, Menu } from 'antd';
 import { Paper } from '../../component/paper/index';
 import ReactQuill from 'react-quill'; // ES6
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import { Dragact } from 'dragact';
+
 
 import './index.less';
 import 'react-quill/dist/quill.snow.css'; // ES6
+import { Exercise } from '../../component/Log-Exercise/log-excersise';
 
 
-class Editors extends React.Component {
-    state = { title: '', content: '' }
-    handleChange = (value) => {
-        this.setState({ content: value });
-    }
-    handleInputChange = (p) => {
-        this.setState({ title: p.target.value });
-    }
-    checkForm = (fn) => {
-        const { title, content } = this.state;
-        if (title === '') {
-            message.error("文章标题不能为空")
-            return;
-        }
-        if (content === '') {
-            message.error("文章内容不能为空");
-            return;
-        }
-        fn();
-    }
+const url = {
+    '/workout/exercise': 'exercise',
+    '/workout/category': 'category',
+    '/workout/tool': 'tool',
+    '/workout/about': 'about',
+}
 
+const LogMenu = ({ onSelect, routerState }) => {
+    const current = url[routerState];
+
+    return (
+        <div className='log-menu-warpper'>
+            <Menu
+                defaultSelectedKeys={['about']}
+                selectedKeys={[current]}
+                onSelect={onSelect}
+            >
+                <Menu.Item key='exercise'><Link to='/workout/exercise'>动作</Link></Menu.Item>
+                <Menu.Item key='category'><Link to='/workout/category'>类目</Link></Menu.Item>
+                <Menu.Item key='tool'><Link to='/workout/tool'>工具</Link></Menu.Item>
+                <Menu.Item key='about'><Link to='/workout/about'>关于</Link></Menu.Item>
+            </Menu>
+        </div>
+    )
+}
+
+const fakeData = [
+    { GridX: 0, GridY: 0, w: 4, h: 2, key: '0', part: '胸部' },
+    { GridX: 4, GridY: 0, w: 4, h: 2, key: '1', part: '腿' },
+    { GridX: 8, GridY: 0, w: 4, h: 2, key: '2', part: '腹' },
+    { GridX: 12, GridY: 0, w: 4, h: 2, key: '3', part: '背' },
+]
+
+const getblockStyle = (isDragging) => {
+    return {
+        background: isDragging ? '#e6f7ff' : 'white',
+        display: 'flex',
+        justifyContent: "center",
+        alignItems: 'center'
+    }
+};
+
+
+const CategoryItem = ({ item, provided }) => {
+    return (
+        <div
+            {...provided.props}
+            {...provided.dragHandle}
+            style={{
+                ...provided.props.style,
+                ...getblockStyle(provided.isDragging)
+            }}
+            className="CategoryItem"
+        >
+            <div style={{ fontSize: 15 }}>{item.part}</div>
+        </div>
+    )
+}
+
+const Category = (routerState) => {
+    if (routerState !== '/workout/category') return null;
+    return (
+        <Dragact
+            layout={fakeData}//必填项
+            col={16}//必填项
+            width={750}//必填项
+            rowHeight={25}//必填项
+            margin={[5, 5]}//必填项
+            className='plant-layout'//必填项
+            placeholder={true}//非必填项
+        >
+            {(item, provided) => {
+                return CategoryItem({ item, provided })
+            }}
+        </Dragact>
+    )
+}
+
+
+
+
+class Log extends React.Component {
     checkAuth = () => {
         this.props.dispatch({ type: 'checkAuth' });
 
     }
-
-
-    handleClick = () => {
-        this.checkForm(() => {
-            this.props.dispatch({
-                type: 'postArticle',
-                payload: {
-                    content: this.state.content,
-                    title: this.state.title,
-                    articleID: Date.now()
-                }
-            })
-        })
+    handleOnSelect = ({ item, key, selectedKeys }) => {
+        const path = '/workout/' + key;
+        this.props.dispatch({ type: 'change', payload: path })
     }
+
     componentWillMount() {
         this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
     }
@@ -57,27 +112,37 @@ class Editors extends React.Component {
     }
 
 
+
+    dispatcher = () => {
+        const { routerState } = this.props;
+        const ComponentMap = {
+            '/workout/exercise': <Exercise />,
+            '/workout/category': Category(routerState),
+            '/workout/tool': 'tool',
+            '/workout/about': 'about',
+        }
+        return ComponentMap[routerState];
+    }
+
+
     render() {
-        const { redirectPath, isRedirect } = this.props;
+        const { redirectPath, isRedirect, routerState } = this.props;
         if (isRedirect) {
             return <Redirect to={redirectPath} />
         }
+
         return (
-            <Paper>
-                <div>
-                    <div style={{ marginBottom: 22 }}>
-                        <Input onChange={this.handleInputChange} placeholder="文章标题" />
+            <div className='log-wrapper'>
+                <LogMenu
+                    routerState={routerState}
+                    onSelect={this.handleOnSelect}
+                />
+                <Paper>
+                    <div className='log-paper'>
+                        {this.dispatcher()}
                     </div>
-                    <ReactQuill
-                        placeholder='今天写点什么...'
-                        style={{ minHeight: 300 }}
-                        value={this.state.content}
-                        onChange={this.handleChange}
-                    >
-                    </ReactQuill>
-                    <Button type="primary" style={{ marginTop: 22 }} onClick={this.handleClick}>提交</Button>
-                </div>
-            </Paper>
+                </Paper>
+            </div>
         )
     }
 }
@@ -85,12 +150,11 @@ class Editors extends React.Component {
 
 const mapState = (state) => {
     return {
-        isRedirect: state.editor.isRedirect,
-        redirectPath: state.editor.redirectPath
+        ...state.editor
     }
 }
 
-export const Editor = connect(mapState)(Editors);
+export default connect(mapState)(Log);
 
 
 

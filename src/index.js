@@ -11,6 +11,7 @@ Rluy.model(require('./model/introduction'));
 Rluy.model(require('./model/articles'));
 Rluy.model(require('./model/login'))
 Rluy.model(require('./model/console'))
+Rluy.model(require('./model/excersise'))
 
 Rluy.run(document.getElementById('root'));
 

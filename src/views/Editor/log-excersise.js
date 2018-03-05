@@ -1,11 +1,10 @@
 import React from 'react';
-import { Button, Menu, Dropdown, Icon, Tabs, DatePicker, Form, Input } from 'antd';
+import { Button, Menu, Dropdown, Icon, Tabs, DatePicker, Form } from 'antd';
 import moment from 'moment';
 
-import LogForm from './log-form';
 
-const { MonthPicker, RangePicker } = DatePicker;
-const FormItem = Form.Item;
+import LogForm from './log-form';
+import LogHistory from './log-history';
 
 
 const menu = (
@@ -44,13 +43,17 @@ const Editor = () => {
                         <DatePicker defaultValue={moment('2015/01/01', dateFormat)} format={dateFormat} />
                         <LogForm />
                     </TabPane>
-                    <TabPane tab="历史" key="2">Content of Tab Pane 2</TabPane>
+                    <TabPane tab="历史" key="2">
+                        <LogHistory />
+                    </TabPane>
                     <TabPane tab="图表" key="3">Content of Tab Pane 3</TabPane>
                 </Tabs>
             </div>
         </div>
     )
 }
+
+
 
 
 export class Exercise extends React.Component {

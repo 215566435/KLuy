@@ -2,17 +2,14 @@
 export class BaseManager {
     constructor(call) {
         this.call = call;
-        this.domain = 'http://127.0.0.1:7001'
+        this.domain = 'http://yapi.demo.qunar.com/mock/4986'
         this.token = localStorage.getItem('token')
     }
 
     *Get(url) {
         try {
             const res = yield this.call(fetch, this.domain + url, {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'token ' + this.token
-                }
+                method: 'GET'
             })
             const json = yield res.json();
             return json;

@@ -9,7 +9,7 @@ import { Dragact } from 'dragact';
 
 import './index.less';
 import 'react-quill/dist/quill.snow.css'; // ES6
-import { Exercise } from '../../component/Log-Exercise/log-excersise';
+import { Exercise } from './log-excersise';
 
 
 const url = {
@@ -23,7 +23,7 @@ const LogMenu = ({ onSelect, routerState }) => {
     const current = url[routerState];
 
     return (
-        <div className='log-menu-warpper'>
+        <div className='log-menu-warpper' style={{ maxHeight: 192 }}>
             <Menu
                 defaultSelectedKeys={['about']}
                 selectedKeys={[current]}
@@ -107,7 +107,7 @@ class Log extends React.Component {
         this.props.dispatch({ type: 'change', payload: this.props.location.pathname })
     }
     componentDidMount() {
-        this.checkAuth();
+        // this.checkAuth();
 
     }
 

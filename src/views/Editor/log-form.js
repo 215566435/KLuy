@@ -1,9 +1,8 @@
 import React from 'react';
-
 import { Button, Menu, Dropdown, Icon, Tabs, DatePicker, Form, Input } from 'antd';
+import './index.less';
 
 const FormItem = Form.Item;
-
 
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -29,8 +28,19 @@ class LogForm extends React.Component {
                 })
             }
         });
-
     }
+    renderExcersiseDetail = () => {
+        return this.state.excersiseDetail.map((item, index) => {
+            return (
+                <div key={index} className='set-row'>
+                    <span style={{ color: '#1890FF' }}>第{index + 1}组：</span>
+                    <span>{item.reps}次</span>
+                    <span>{item.weight}kg</span>
+                </div>
+            )
+        })
+    }
+
     render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
@@ -70,12 +80,7 @@ class LogForm extends React.Component {
                         />
                     </FormItem>
                 </Form>
-                {this.state.excersiseDetail.map((item, index) => {
-                    return <div key={index}>
-                        {item.reps}
-                        {item.weight}
-                    </div>
-                })}
+                {this.renderExcersiseDetail()}
             </div>
         );
     }

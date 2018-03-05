@@ -111,8 +111,6 @@ class Log extends React.Component {
 
     }
 
-
-
     dispatcher = () => {
         const { routerState } = this.props;
         const ComponentMap = {

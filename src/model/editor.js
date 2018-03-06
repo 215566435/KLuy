@@ -1,9 +1,17 @@
 import { ArticleManager } from "../Manager/article";
 import { UserManager } from "../Manager/user";
+import { CategoryManager } from "../Manager/category";
+
+
+const addType = (array, type) => {
+    return array.map((item) => {
+        return { ...item, type: type }
+    })
+}
 
 export default {
     namespace: 'editor',
-    state: {},
+    state: { category: [] },
     reducer: {
         change(state, { payload }) {
             return { ...state, routerState: payload, isRedirect: false }
@@ -14,6 +22,11 @@ export default {
                 ...state,
                 redirectPath: { pathname: payload.redirectPath },
                 isRedirect: payload.isRedirect
+            }
+        },
+        mapCategory(state, { payload }) {
+            return {
+                ...state, category: payload
             }
         }
     },
@@ -32,19 +45,26 @@ export default {
             }
 
         },
-        *postArticle({ put, call }, { payload }) {
-            const amanager = new ArticleManager(call);
-            const res = yield amanager.postArticle('/article', { ...payload })
+        *fetchExcersise({ put, call }, { payload }) {
+            yield put({
+                type: "mapCategory",
+                payload: []
+            })
+            const Category = new CategoryManager(call);
+            const json = yield Category.getCategory('/category/123');
+            yield put({
+                type: "mapCategory",
+                payload: addType(json.data.excersise, 'excersize'),
+            })
+        },
+        *fetchCategory({ put, call, select }, { payload }) {
+            const Category = new CategoryManager(call);
+            const json = yield Category.getCategory('/category');
+            yield put({
+                type: "mapCategory",
+                payload: addType(json.data.category, 'category'),
+            })
 
-            if (res.status === 'good') {
-                yield put({
-                    type: 'redirect',
-                    payload: {
-                        isRedirect: true,
-                        redirectPath: '/'
-                    }
-                })
-            }
         }
     }
 }

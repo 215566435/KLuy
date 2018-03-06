@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { LoadingArray } from '../../component/LoadingHoc';
 
 
 const HistoryBlock = ({ time, item = {} }) => {
@@ -26,12 +26,16 @@ class LogHistory extends React.Component {
     render() {
         return (
             <div>
-                {this.props.history.map((item) => {
-                    return <HistoryBlock
-                        key={item.id}
-                        item={item}
-                    />
-                })}
+                <LoadingArray
+                    array={this.props.history}
+                >
+                    {item => (
+                        <HistoryBlock
+                            key={item.id}
+                            item={item}
+                        />
+                    )}
+                </LoadingArray>
             </div>
         )
     }

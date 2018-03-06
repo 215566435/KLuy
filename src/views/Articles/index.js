@@ -1,5 +1,4 @@
 import React from 'react';
-import Showdown from 'showdown';
 import { connect } from 'react-redux';
 import { Paper } from '../../component/paper/index';
 
@@ -8,7 +7,6 @@ import { CommentArea } from '../../component/CommentCard/index';
 import { CommentForm } from '../../component/CommentForm/index';
 
 
-var fileContent = require("./plan.md");
 
 
 

@@ -1,15 +1,11 @@
 import React from 'react';
-import { Button, Menu } from 'antd';
+import { Menu } from 'antd';
 import { Paper } from '../../component/paper/index';
-import ReactQuill from 'react-quill'; // ES6
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-
-
+import { Exercise } from './log-excersise';
+import Category from './log-category';
 import './index.less';
-import 'react-quill/dist/quill.snow.css'; // ES6
-import { Exercise, Clickble, Curd } from './log-excersise';
-
 
 const url = {
     '/workout/exercise': 'exercise',
@@ -37,49 +33,6 @@ const LogMenu = ({ onSelect, routerState }) => {
     )
 }
 
-
-
-const getblockStyle = (isDragging) => {
-    return {
-        background: isDragging ? '#e6f7ff' : 'white',
-        display: 'flex',
-        justifyContent: "center",
-        alignItems: 'center'
-    }
-};
-
-
-const CategoryItem = ({ item, provided }) => {
-    return (
-        <div
-            {...provided.props}
-            {...provided.dragHandle}
-            style={{
-                ...provided.props.style,
-                ...getblockStyle(provided.isDragging)
-            }}
-            className="CategoryItem"
-        >
-            <div style={{ fontSize: 15 }}>{item.part}</div>
-        </div>
-    )
-}
-
-const Category = (routerState) => {
-    if (routerState !== '/workout/category') return null;
-    return (
-        <div>
-            <Clickble>
-                <div>chest</div>
-                <div><Curd /></div>
-            </Clickble>
-        </div>
-    )
-}
-
-
-
-
 class Log extends React.Component {
     checkAuth = () => {
         this.props.dispatch({ type: 'checkAuth' });
@@ -102,7 +55,7 @@ class Log extends React.Component {
         const { routerState } = this.props;
         const ComponentMap = {
             '/workout/exercise': <Exercise />,
-            '/workout/category': Category(routerState),
+            '/workout/category': <Category />,
             '/workout/tool': 'tool',
             '/workout/about': 'about',
         }

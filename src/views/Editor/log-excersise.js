@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Menu, Dropdown, Icon, Tabs, DatePicker, Form } from 'antd';
+import { Menu, Dropdown, Icon, Tabs, DatePicker } from 'antd';
 import moment from 'moment';
 
 
@@ -23,7 +23,7 @@ const menu = (
 export const Curd = () => {
     return (
         <Dropdown overlay={menu}>
-            <a className="ant-dropdown-link" href="#">
+            <a className="ant-dropdown-link" href="#1">
                 <Icon type="down" style={{ fontSize: 16, color: '#08c' }} />
             </a>
         </Dropdown>
@@ -31,7 +31,6 @@ export const Curd = () => {
 }
 
 const dateFormat = 'YYYY/MM/DD';
-const monthFormat = 'YYYY/MM';
 const TabPane = Tabs.TabPane;
 const Editor = () => {
     return (
@@ -54,10 +53,10 @@ const Editor = () => {
 }
 
 
-export const Clickble = (props) => {
+export const Clickble = ({ children, onClick }) => {
     return (
-        <div className='exercise-row'>
-            {props.children}
+        <div className='exercise-row' onClick={onClick}>
+            {children}
         </div>
     )
 }

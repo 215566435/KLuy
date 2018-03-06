@@ -1,5 +1,4 @@
 import { ArticleManager } from "../Manager/article";
-import { UserManager } from "../Manager/user";
 
 export default {
     namespace: 'console',

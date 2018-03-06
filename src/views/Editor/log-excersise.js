@@ -20,7 +20,7 @@ const menu = (
 
 
 
-const Curd = () => {
+export const Curd = () => {
     return (
         <Dropdown overlay={menu}>
             <a className="ant-dropdown-link" href="#">
@@ -35,7 +35,7 @@ const monthFormat = 'YYYY/MM';
 const TabPane = Tabs.TabPane;
 const Editor = () => {
     return (
-        <div style={{ display: 'flex', justifyContent: "center" }}>
+        <div style={{ width: 500 }}>
             <div style={{ textAlign: "center" }}>
                 <div style={{ fontSize: 22 }}>name</div>
                 <Tabs defaultActiveKey="1" >
@@ -54,20 +54,30 @@ const Editor = () => {
 }
 
 
-
+export const Clickble = (props) => {
+    return (
+        <div className='exercise-row'>
+            {props.children}
+        </div>
+    )
+}
 
 export class Exercise extends React.Component {
 
 
     render() {
+        // <Button type="primary" shape="circle" icon="plus" />
+        // <Clickble>
+        //             <div>bench press</div>
+        //             <div><Curd /></div>
+        //         </Clickble>
         return (
-            <div >
-                <Button type="primary" shape="circle" icon="plus" />
+            <div style={{
+                display: "flex",
+                justifyContent: 'center'
+            }}
+            >
                 <Editor />
-                <div className='exercise-row'>
-                    <div>bench press</div>
-                    <div><Curd /></div>
-                </div>
             </div>
         )
     }

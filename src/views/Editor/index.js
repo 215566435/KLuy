@@ -4,12 +4,11 @@ import { Paper } from '../../component/paper/index';
 import ReactQuill from 'react-quill'; // ES6
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import { Dragact } from 'dragact';
 
 
 import './index.less';
 import 'react-quill/dist/quill.snow.css'; // ES6
-import { Exercise } from './log-excersise';
+import { Exercise, Clickble, Curd } from './log-excersise';
 
 
 const url = {
@@ -38,12 +37,7 @@ const LogMenu = ({ onSelect, routerState }) => {
     )
 }
 
-const fakeData = [
-    { GridX: 0, GridY: 0, w: 4, h: 2, key: '0', part: '胸部' },
-    { GridX: 4, GridY: 0, w: 4, h: 2, key: '1', part: '腿' },
-    { GridX: 8, GridY: 0, w: 4, h: 2, key: '2', part: '腹' },
-    { GridX: 12, GridY: 0, w: 4, h: 2, key: '3', part: '背' },
-]
+
 
 const getblockStyle = (isDragging) => {
     return {
@@ -74,19 +68,12 @@ const CategoryItem = ({ item, provided }) => {
 const Category = (routerState) => {
     if (routerState !== '/workout/category') return null;
     return (
-        <Dragact
-            layout={fakeData}//必填项
-            col={16}//必填项
-            width={750}//必填项
-            rowHeight={25}//必填项
-            margin={[5, 5]}//必填项
-            className='plant-layout'//必填项
-            placeholder={true}//非必填项
-        >
-            {(item, provided) => {
-                return CategoryItem({ item, provided })
-            }}
-        </Dragact>
+        <div>
+            <Clickble>
+                <div>chest</div>
+                <div><Curd /></div>
+            </Clickble>
+        </div>
     )
 }
 

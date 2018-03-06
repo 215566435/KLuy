@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 
 
 const HistoryBlock = ({ time, item = {} }) => {
-    console.log(item);
     return (
         <div className='history-block'>
             <div>{item.time}</div>
             <div style={{ borderBottom: '1px solid #1890FF' }} />
-            {item.sets.map((set) =>
-                <div>{set}</div>
+            {item.sets.map((set, index) =>
+                <div key={index}>{set}</div>
             )}
         </div>
     )
@@ -25,7 +24,6 @@ class LogHistory extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div>
                 {this.props.history.map((item) => {

@@ -45,9 +45,9 @@ const Headed = ({ routerState, token }) => {
     const renderItem = () => {
         if (token) {
             return [
-                <Menu.Item key="1"><Link to='/'>首页</Link></Menu.Item>,
+                <Menu.Item key="1"><Link to='/'>训记</Link></Menu.Item>,
                 <Menu.Item key="2"><Link to='/workout/about'>记录</Link></Menu.Item>,
-                <Menu.Item key="3" ><Link to='/console'>控制台</Link></Menu.Item>,
+                <Menu.Item key="3" ><Link to='/console'>FAQ</Link></Menu.Item>,
             ]
         }
         return [

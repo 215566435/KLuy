@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 
 
 
-const HistoryBlock = ({ time, history = [] }) => {
+const HistoryBlock = ({ time, item = {} }) => {
+    console.log(item);
     return (
         <div className='history-block'>
-            <div>{time}</div>
+            <div>{item.time}</div>
             <div style={{ borderBottom: '1px solid #1890FF' }} />
-            {history.map((item) => {
-                return <div></div>
-            })}
+            {item.sets.map((set) =>
+                <div>{set}</div>
+            )}
         </div>
     )
 }
@@ -27,7 +28,12 @@ class LogHistory extends React.Component {
         console.log(this.props)
         return (
             <div>
-                <HistoryBlock />
+                {this.props.history.map((item) => {
+                    return <HistoryBlock
+                        key={item.id}
+                        item={item}
+                    />
+                })}
             </div>
         )
     }

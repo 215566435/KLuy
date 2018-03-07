@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Clickble, Curd } from './log-excersise';
-import { LoadingArray } from '../../component/LoadingHoc';
-import { Modal, Button } from 'antd';
+import React from 'react'
+import { connect } from 'react-redux'
+import { Clickble, Curd, Editor } from './log-excersise'
+import { LoadingArray } from '../../component/LoadingHoc'
+import { Modal } from 'antd'
 
 class Category extends React.Component {
     state = {
@@ -10,51 +10,53 @@ class Category extends React.Component {
     }
 
     componentDidMount() {
-        const { category } = this.props;
+        const { category } = this.props
         if (category.length < 1) {
-            this.props.dispatch({ type: "fetchCategory" });
+            this.props.dispatch({ type: 'fetchCategory' })
         }
     }
 
-    onHandleCategoryClick = (id) => {
-        this.props.dispatch({ type: "fetchExcersise", payload: id });
+    onHandleCategoryClick = id => {
+        this.props.dispatch({ type: 'fetchExcersise', payload: id })
     }
-    onHandleExcersiseClick = (id) => {
+    onHandleExcersiseClick = id => {
         this.setState({
             visible: true
         })
     }
-    handleOk = (e) => {
-        console.log(e);
+    handleOk = e => {
+        console.log(e)
         this.setState({
-            visible: false,
-        });
+            visible: false
+        })
     }
-    handleCancel = (e) => {
-        console.log(e);
+    handleCancel = e => {
+        console.log(e)
         this.setState({
-            visible: false,
-        });
+            visible: false
+        })
     }
 
     render() {
-        const { category } = this.props;
+        const { category } = this.props
         return (
             <div>
-                <LoadingArray
-                    array={category}
-                >
+                <LoadingArray array={category}>
                     {item => (
                         <Clickble
                             key={item.id}
                             onClick={() => {
-                                item.type === 'category' ?
-                                    this.onHandleCategoryClick(item.id) :
-                                    this.onHandleExcersiseClick(item.id)
+                                item.type === 'category'
+                                    ? this.onHandleCategoryClick(item.id)
+                                    : this.onHandleExcersiseClick(item.id)
                             }}
                         >
                             <div>{item.name}</div>
-                            {item.type === 'category' ? <div><Curd /></div> : null}
+                            {item.type === 'category' ? (
+                                <div>
+                                    <Curd />
+                                </div>
+                            ) : null}
                         </Clickble>
                     )}
                 </LoadingArray>
@@ -63,20 +65,23 @@ class Category extends React.Component {
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
+                    width={600}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}
                 >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                    <Editor />
                 </Modal>
             </div>
         )
     }
 }
 
-const mapState = (state) => {
+const mapState = state => {
     return {
         category: state.editor.category
     }
 }
 
-export default connect(mapState)(Category);
+export default connect(mapState)(Category)

@@ -1,7 +1,3 @@
-import React from 'react';
+import React from 'react'
 
-export class BaseView extends React.Component {
-
-    
-
-}
+export class BaseView extends React.Component {}

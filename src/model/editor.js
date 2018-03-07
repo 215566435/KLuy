@@ -1,10 +1,8 @@
-import { ArticleManager } from "../Manager/article";
-import { UserManager } from "../Manager/user";
-import { CategoryManager } from "../Manager/category";
-
+import { UserManager } from '../Manager/user'
+import { CategoryManager } from '../Manager/category'
 
 const addType = (array, type) => {
-    return array.map((item) => {
+    return array.map(item => {
         return { ...item, type: type }
     })
 }
@@ -17,7 +15,6 @@ export default {
             return { ...state, routerState: payload, isRedirect: false }
         },
         redirect(state, { payload }) {
-
             return {
                 ...state,
                 redirectPath: { pathname: payload.redirectPath },
@@ -26,14 +23,15 @@ export default {
         },
         mapCategory(state, { payload }) {
             return {
-                ...state, category: payload
+                ...state,
+                category: payload
             }
         }
     },
     effects: {
         *checkAuth({ put, call }, { payload }) {
-            const user = new UserManager(call);
-            const res = yield user.auth();
+            const user = new UserManager(call)
+            const res = yield user.auth()
             if (res.status === 'fail') {
                 yield put({
                     type: 'redirect',
@@ -43,28 +41,26 @@ export default {
                     }
                 })
             }
-
         },
         *fetchExcersise({ put, call }, { payload }) {
             yield put({
-                type: "mapCategory",
+                type: 'mapCategory',
                 payload: []
             })
-            const Category = new CategoryManager(call);
-            const json = yield Category.getCategory('/category/123');
+            const Category = new CategoryManager(call)
+            const json = yield Category.getCategory('/category/123')
             yield put({
-                type: "mapCategory",
-                payload: addType(json.data.excersise, 'excersize'),
+                type: 'mapCategory',
+                payload: addType(json.data.exercise, 'exercise')
             })
         },
         *fetchCategory({ put, call, select }, { payload }) {
-            const Category = new CategoryManager(call);
-            const json = yield Category.getCategory('/category');
+            const Category = new CategoryManager(call)
+            const json = yield Category.getCategory('/category')
             yield put({
-                type: "mapCategory",
-                payload: addType(json.data.category, 'category'),
+                type: 'mapCategory',
+                payload: addType(json.data.category, 'category')
             })
-
         }
     }
 }

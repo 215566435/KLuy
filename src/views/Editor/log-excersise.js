@@ -119,7 +119,7 @@ class Exercise extends React.Component {
                         justifyContent: 'center'
                     }}
                 >
-                    <Editor />
+                    {this.state.visible ? <Editor /> : null}
                 </Modal>
             </div>
         )

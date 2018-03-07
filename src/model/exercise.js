@@ -13,6 +13,10 @@ export default {
     },
     effects: {
         *fetchHistory({ put, call }, { payload }) {
+            yield put({
+                type: 'bindHistory',
+                payload: []
+            })
             const exmanager = new ExcersiseManager(call)
             const json = yield exmanager.getExcersise('/history')
             yield put({
@@ -25,7 +29,6 @@ export default {
                 type: 'bindExcersise',
                 payload: []
             })
-
             const exmanager = new ExcersiseManager(call)
             const json = yield exmanager.getExcersise('/category/123')
 

@@ -16,6 +16,7 @@ class LogForm extends React.Component {
     componentDidMount() {
         // To disabled submit button at the beginning.
         this.props.form.validateFields()
+        console.log('mount')
     }
     handleSubmit = e => {
         e.preventDefault()

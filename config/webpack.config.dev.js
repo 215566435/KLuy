@@ -112,6 +112,14 @@ module.exports = {
         use: [{
           loader: require.resolve('raw-loader')
         }]
+      },
+      {
+        test: /\qwerty.js$/,
+        use: [
+          {
+            loader: path.resolve('config/testloader.js'),
+          }
+        ]
       }
       ,
       {

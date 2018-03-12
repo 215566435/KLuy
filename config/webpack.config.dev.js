@@ -127,7 +127,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\rluy.js$/,
+                test: /rluyconfig/,
                 use: [
                     {
                         loader: path.resolve('config/testloader.js')

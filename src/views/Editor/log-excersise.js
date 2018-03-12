@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Dropdown, Icon, Tabs, DatePicker, Modal } from 'antd'
+import { Menu, Dropdown, Icon, Tabs, DatePicker, Modal, Button } from 'antd'
 import moment from 'moment'
 import { connect } from 'react-redux'
 
@@ -30,7 +30,7 @@ export const Curd = () => {
 
 const dateFormat = 'YYYY/MM/DD'
 const TabPane = Tabs.TabPane
-export const Editor = () => {
+export const Editor = props => {
     return (
         <div style={{ width: 500 }}>
             <div style={{ textAlign: 'center' }}>
@@ -41,10 +41,10 @@ export const Editor = () => {
                             defaultValue={moment('2015/01/01', dateFormat)}
                             format={dateFormat}
                         />
-                        <LogForm />
+                        <LogForm {...props} />
                     </TabPane>
                     <TabPane tab="历史" key="2">
-                        <LogHistory />
+                        <LogHistory {...props} />
                     </TabPane>
                     <TabPane tab="图表" key="3">
                         Content of Tab Pane 3
@@ -63,18 +63,111 @@ export const Clickble = ({ children, onClick }) => {
     )
 }
 
+class AddFields extends React.Component {
+    state = {
+        excersiseDetail: []
+    }
+
+    componentDidMount() {
+        // To disabled submit button at the beginning.
+        this.props.form.validateFields()
+    }
+    handleAdd = e => {
+        e.preventDefault()
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values)
+                this.setState({
+                    excersiseDetail: [...this.state.excersiseDetail, values]
+                })
+            }
+        })
+    }
+
+    render() {
+        const {
+            getFieldDecorator,
+            getFieldsError,
+            getFieldError,
+            isFieldTouched
+        } = this.props.form
+
+        // Only show error after a field is touched.
+        const userNameError = isFieldTouched('reps') && getFieldError('reps')
+        const passwordError =
+            isFieldTouched('weight') && getFieldError('weight')
+        return (
+            <div>
+                <Form layout="inline" onSubmit={this.handleSubmit}>
+                    <FormItem
+                        validateStatus={userNameError ? 'error' : ''}
+                        help={userNameError || ''}
+                    >
+                        {getFieldDecorator('reps', {
+                            rules: [
+                                { required: true, message: '请输入次数(数字)' }
+                            ]
+                        })(
+                            <Input
+                                prefix={
+                                    <Icon
+                                        type="tag-o"
+                                        style={{ color: 'rgba(0,0,0,.25)' }}
+                                    />
+                                }
+                                placeholder="次数"
+                            />
+                        )}
+                    </FormItem>
+                    <FormItem
+                        validateStatus={passwordError ? 'error' : ''}
+                        help={passwordError || ''}
+                    >
+                        {getFieldDecorator('weight', {
+                            rules: [
+                                { required: true, message: '请输入重量(数字)' }
+                            ]
+                        })(
+                            <Input
+                                prefix={
+                                    <Icon
+                                        type="tag-o"
+                                        style={{ color: 'rgba(0,0,0,.25)' }}
+                                    />
+                                }
+                                placeholder="重量kg"
+                            />
+                        )}
+                    </FormItem>
+                    <FormItem>
+                        <Button
+                            type="primary"
+                            shape="circle"
+                            icon="plus"
+                            onClick={this.handleAdd}
+                            disabled={hasErrors(getFieldsError())}
+                        />
+                    </FormItem>
+                </Form>
+            </div>
+        )
+    }
+}
+
 class Exercise extends React.Component {
     state = {
-        visible: false
+        visible: false,
+        currentID: ''
     }
 
     componentDidMount() {
         this.props.dispatch({ type: 'fetchExerciseAll' })
     }
 
-    handleOnClick = () => {
+    handleOnClick = id => {
         this.setState({
-            visible: true
+            visible: true,
+            currentID: id
         })
     }
 
@@ -92,10 +185,9 @@ class Exercise extends React.Component {
     }
 
     render() {
-        // <Button type="primary" shape="circle" icon="plus" />
-
         return (
             <div>
+                <Button type="primary" shape="circle" icon="plus" />
                 <LoadingArray array={this.props.exercise}>
                     {item => {
                         return (
@@ -110,6 +202,7 @@ class Exercise extends React.Component {
                 </LoadingArray>
                 <Modal
                     title="运动详情"
+                    footer={null}
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
@@ -119,7 +212,9 @@ class Exercise extends React.Component {
                         justifyContent: 'center'
                     }}
                 >
-                    {this.state.visible ? <Editor /> : null}
+                    {this.state.visible ? (
+                        <Editor currentID={this.state.currentID} />
+                    ) : null}
                 </Modal>
             </div>
         )

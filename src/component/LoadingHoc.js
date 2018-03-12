@@ -1,11 +1,10 @@
-import React from 'react';
-import { Spin } from 'antd';
+import React from 'react'
+import { Spin } from 'antd'
 
 export const LoadingArray = ({ array, children }) => {
-
-    if (array === void 666 || array.length < 1) {
+    if (array === void 666) {
         return (
-            <div style={{ display: "flex", justifyContent: "center" }} >
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Spin size="large" />
             </div>
         )

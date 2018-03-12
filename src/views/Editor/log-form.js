@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Icon, Form, Input } from 'antd'
+import { connect } from 'react-redux'
 import './index.less'
 
 const FormItem = Form.Item
@@ -16,9 +17,8 @@ class LogForm extends React.Component {
     componentDidMount() {
         // To disabled submit button at the beginning.
         this.props.form.validateFields()
-        console.log('mount')
     }
-    handleSubmit = e => {
+    handleAdd = e => {
         e.preventDefault()
         this.props.form.validateFields((err, values) => {
             if (!err) {
@@ -27,6 +27,14 @@ class LogForm extends React.Component {
                     excersiseDetail: [...this.state.excersiseDetail, values]
                 })
             }
+        })
+    }
+
+    handleSubmit = e => {
+        e.preventDefault()
+        this.props.dispatch({
+            type: 'addExerciseSet',
+            payload: this.state.excersiseDetail
         })
     }
     handleDelete = id => {
@@ -123,17 +131,27 @@ class LogForm extends React.Component {
                     <FormItem>
                         <Button
                             type="primary"
-                            htmlType="submit"
                             shape="circle"
                             icon="plus"
+                            onClick={this.handleAdd}
                             disabled={hasErrors(getFieldsError())}
                         />
                     </FormItem>
+                    {this.renderExcersiseDetail()}
+                    <FormItem>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            onClick={this.handleSubmit}
+                        >
+                            提交
+                        </Button>
+                    </FormItem>
                 </Form>
-                {this.renderExcersiseDetail()}
+                
             </div>
         )
     }
 }
 
-export default Form.create()(LogForm)
+export default connect()(Form.create()(LogForm))

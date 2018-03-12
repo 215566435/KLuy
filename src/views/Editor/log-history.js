@@ -5,9 +5,14 @@ import { LoadingArray } from '../../component/LoadingHoc'
 const HistoryBlock = ({ time, item = {} }) => {
     return (
         <div className="history-block">
-            <div>{item.time}</div>
+            <div>{item.date}</div>
             <div style={{ borderBottom: '1px solid #1890FF' }} />
-            {item.sets.map((set, index) => <div key={index}>{set}</div>)}
+            {item.data.map((set, index) => (
+                <div key={index}>
+                    <span>{set.reps}</span>
+                    <span>{set.weight}</span>
+                </div>
+            ))}
         </div>
     )
 }
@@ -15,7 +20,8 @@ const HistoryBlock = ({ time, item = {} }) => {
 class LogHistory extends React.Component {
     componentDidMount() {
         this.props.dispatch({
-            type: 'fetchHistory'
+            type: 'fetchHistory',
+            payload: this.props.currentID
         })
     }
 
@@ -32,7 +38,6 @@ class LogHistory extends React.Component {
 }
 
 const mapState = state => {
-    console.log()
     return {
         ...state.exercise
     }

@@ -1,14 +1,15 @@
 module.exports = function(source) {
-    console.log(source)
+    const appPath = path.resolve('./')
+    console.log(appPath)
 
-    // 对资源应用一些转换……
+    // return `${source}\n 
+    // rluy.model(require('./model/exercise'))
+    // rluy.model(require('./model/editor'))
+    // rluy.model(require('./model/introduction'))
+    // rluy.model(require('./model/articles'))
+    // rluy.model(require('./model/login'))
+    // rluy.model(require('./model/console'))
+    // `
 
-    return `${source}\n 
-    Rluy.model(require('./model/exercise'))
-    Rluy.model(require('./model/editor'))
-    Rluy.model(require('./model/introduction'))
-    Rluy.model(require('./model/articles'))
-    Rluy.model(require('./model/login'))
-    Rluy.model(require('./model/console'))
-    `
+    return "console.log('asdasdas')"
 }

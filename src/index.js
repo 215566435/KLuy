@@ -1,16 +1,10 @@
 import './index.css'
 import { message } from 'antd'
 import registerServiceWorker from './registerServiceWorker'
-import { Rluy } from './qwerty'
+import { Rluy } from './rluy'
 
-// Rluy.init()
-Rluy.router(require('./router'))
-// Rluy.model(require('./model/editor'))
-// Rluy.model(require('./model/introduction'))
-// Rluy.model(require('./model/articles'))
-// Rluy.model(require('./model/login'))
-// Rluy.model(require('./model/console'))
-// Rluy.model(require('./model/exercise'))
+// Rluy.router(require('./router'))
+
 
 
 // Rluy.onError(e => {
@@ -18,6 +12,6 @@ Rluy.router(require('./router'))
 //     message.error('客户端功能未实现或者发生错误')
 // })
 
-Rluy.run(document.getElementById('root'))
+// Rluy.run(document.getElementById('root'))
 
-registerServiceWorker()
+// registerServiceWorker()

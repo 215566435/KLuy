@@ -1,5 +1,3 @@
-import { ArticleManager } from "../Manager/article";
-
 export default {
     namespace: 'intro',
     state: {},
@@ -11,13 +9,7 @@ export default {
     },
     effects: {
         *fetchArticle({ put, call }, { payload }) {
-            const amanager = new ArticleManager(call);
-            const a = yield amanager.getArticle('/articles/' + payload);
-
-            yield put({
-                type: 'articleList',
-                payload: a.data
-            })
+          
         }
     }
 }

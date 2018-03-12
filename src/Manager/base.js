@@ -1,23 +1,23 @@
-
 export class BaseManager {
     constructor(call) {
-        this.call = call;
-        this.domain = 'http://yapi.demo.qunar.com/mock/4986'
+        this.call = call
+        this.domain = 'http://127.0.0.1:7001'
         this.token = localStorage.getItem('token')
     }
 
     *Get(url) {
         try {
             const res = yield this.call(fetch, this.domain + url, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + this.token
+                }
             })
-            const json = yield res.json();
-            return json;
+            const json = yield res.json()
+            return json
+        } catch (e) {
+            console.log(e)
         }
-        catch (e) {
-            console.log(e);
-        }
-
     }
     *delete(url, body) {
         try {
@@ -25,15 +25,14 @@ export class BaseManager {
                 method: 'DELETE',
                 body: JSON.stringify(body),
                 headers: {
-                    "Content-Type": 'application/json',
-                    'Authorization': 'token ' + this.token
+                    'Content-Type': 'application/json',
+                    Authorization: 'token ' + this.token
                 }
             })
-            const json = yield res.json();
-            return json;
-        }
-        catch (e) {
-            console.log(e);
+            const json = yield res.json()
+            return json
+        } catch (e) {
+            console.log(e)
         }
     }
 
@@ -43,15 +42,30 @@ export class BaseManager {
                 method: 'POST',
                 body: JSON.stringify(body),
                 headers: {
-                    "Content-Type": 'application/json',
-                    'Authorization': 'token ' + this.token
+                    'Content-Type': 'application/json',
+                    Authorization: 'token ' + this.token
                 }
             })
-            const json = yield res.json();
-            return json;
+            const json = yield res.json()
+            return json
+        } catch (e) {
+            console.log(e)
         }
-        catch (e) {
-            console.log(e);
+    }
+
+    *fetchNoHeader(url, body) {
+        try {
+            const res = yield this.call(fetch, this.domain + url, {
+                method: 'POST',
+                body: JSON.stringify(body),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const json = yield res.json()
+            return json
+        } catch (e) {
+            console.log(e)
         }
     }
 }

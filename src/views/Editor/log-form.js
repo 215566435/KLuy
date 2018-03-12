@@ -36,6 +36,7 @@ class LogForm extends React.Component {
                     if (index !== id) {
                         return item
                     }
+                    return null
                 }
             )
         })

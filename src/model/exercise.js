@@ -30,11 +30,10 @@ export default {
                 payload: []
             })
             const exmanager = new ExcersiseManager(call)
-            const json = yield exmanager.getExcersise('/category/123')
-
+            const json = yield exmanager.getExcersise('/exercise')
             yield put({
                 type: 'bindExcersise',
-                payload: json.data.exercise
+                payload: json.payload.exercise
             })
         }
     }

@@ -24,7 +24,9 @@ export default {
         mapCategory(state, { payload }) {
             return {
                 ...state,
-                category: payload
+                category: payload.list,
+                type: payload.type,
+                categoryID: payload.categoryID
             }
         }
     },
@@ -42,16 +44,37 @@ export default {
                 })
             }
         },
+        *addCategory({ put, call }, { payload }) {
+            const Category = new CategoryManager(call)
+            const json = yield Category.fetch('/category/create', {
+                categoryName: payload,
+                categoryID: Date.now()
+            })
+        },
+        *bindExerciseToCate({ put, call }, { payload }) {
+            const Category = new CategoryManager(call)
+            console.log(payload)
+            const json = yield Category.fetch('/category/bind', {
+                categoryID: payload.categoryID,
+                exerciseID: payload.id
+            })
+        },
         *fetchExcersise({ put, call }, { payload }) {
             yield put({
                 type: 'mapCategory',
                 payload: []
             })
             const Category = new CategoryManager(call)
-            const json = yield Category.getCategory('/category/123')
+            const json = yield Category.getCategory(
+                '/category/exercise/' + payload
+            )
             yield put({
                 type: 'mapCategory',
-                payload: addType(json.data.exercise, 'exercise')
+                payload: {
+                    list: addType(json.payload.exercise, 'exercise'),
+                    type: 'exercise',
+                    categoryID: payload
+                }
             })
         },
         *fetchCategory({ put, call, select }, { payload }) {
@@ -59,7 +82,10 @@ export default {
             const json = yield Category.getCategory('/category')
             yield put({
                 type: 'mapCategory',
-                payload: addType(json.data.category, 'category')
+                payload: {
+                    list: addType(json.payload.category, 'category'),
+                    type: 'category'
+                }
             })
         }
     }

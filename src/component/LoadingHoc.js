@@ -11,6 +11,19 @@ export const LoadingArray = ({ array, children }) => {
     }
 
     return array.map((item, index) => {
-        return children(item, index)
+        return children(item, index, array.length)
     })
 }
+
+export const LoadingArrayToChildren = ({ array, children }) => {
+    if (array === void 666) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Spin size="large" />
+            </div>
+        )
+    }
+
+    return children(array)
+}
+

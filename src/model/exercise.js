@@ -55,6 +55,21 @@ export default {
             } else {
                 message.success('加入失败')
             }
+        },
+        *addExercise({ put, call }, { payload }) {
+            const exmanager = new ExcersiseManager(call)
+
+            const json = yield exmanager.addExercise({
+                ...payload
+            })
+            if (json.Success) {
+                yield put({
+                    type: 'bindExcersise',
+                    payload: json.payload.exercise
+                })
+            } else {
+                message.error(json.message)
+            }
         }
     }
 }

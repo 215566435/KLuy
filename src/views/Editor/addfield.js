@@ -16,7 +16,6 @@ class addfields extends React.Component {
         e.preventDefault()
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values)
                 this.props.onSubmit(values)
             }
         })
@@ -31,9 +30,9 @@ class addfields extends React.Component {
         } = this.props.form
 
         // Only show error after a field is touched.
-        const userNameError = isFieldTouched('reps') && getFieldError('reps')
+        const userNameError = isFieldTouched('type') && getFieldError('type')
         const passwordError =
-            isFieldTouched('weight') && getFieldError('weight')
+            isFieldTouched('name') && getFieldError('name')
         return (
             <div>
                 <Form layout="inline" onSubmit={this.handleSubmit}>
@@ -41,9 +40,9 @@ class addfields extends React.Component {
                         validateStatus={userNameError ? 'error' : ''}
                         help={userNameError || ''}
                     >
-                        {getFieldDecorator('reps', {
+                        {getFieldDecorator('type', {
                             rules: [
-                                { required: true, message: '请输入次数(数字)' }
+                                { required: true, message: '请输入运动的类别(力量或者有氧)' }
                             ]
                         })(
                             <Input
@@ -53,7 +52,7 @@ class addfields extends React.Component {
                                         style={{ color: 'rgba(0,0,0,.25)' }}
                                     />
                                 }
-                                placeholder="次数"
+                                placeholder="力量或者有氧"
                             />
                         )}
                     </FormItem>
@@ -61,9 +60,9 @@ class addfields extends React.Component {
                         validateStatus={passwordError ? 'error' : ''}
                         help={passwordError || ''}
                     >
-                        {getFieldDecorator('weight', {
+                        {getFieldDecorator('name', {
                             rules: [
-                                { required: true, message: '请输入重量(数字)' }
+                                { required: true, message: '请输运动名字' }
                             ]
                         })(
                             <Input
@@ -73,7 +72,7 @@ class addfields extends React.Component {
                                         style={{ color: 'rgba(0,0,0,.25)' }}
                                     />
                                 }
-                                placeholder="重量kg"
+                                placeholder="名字"
                             />
                         )}
                     </FormItem>

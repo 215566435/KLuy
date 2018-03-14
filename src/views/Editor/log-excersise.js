@@ -93,7 +93,10 @@ class Exercise extends React.Component {
             visible: false
         })
     }
-    onSubmit = values => {}
+    onSubmit = values => {
+        this.props.dispatch({type:"addExercise",payload:values})
+
+    }
 
     render() {
         return (

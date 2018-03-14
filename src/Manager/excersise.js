@@ -8,4 +8,8 @@ export class ExcersiseManager extends BaseManager {
     *addExerciseSet(body) {
         return yield this.fetch('/exercise/set/create', body)
     }
+
+    *addExercise(body){
+        return yield this.fetch('/exercise/create', body)
+    }
 }

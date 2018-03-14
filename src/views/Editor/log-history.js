@@ -9,8 +9,8 @@ const HistoryBlock = ({ time, item = {} }) => {
             <div style={{ borderBottom: '1px solid #1890FF' }} />
             {item.data.map((set, index) => (
                 <div key={index}>
-                    <span>{set.reps}</span>
-                    <span>{set.weight}</span>
+                    <span>{set.reps}次/</span>
+                    <span>{set.weight}kg</span>
                 </div>
             ))}
         </div>

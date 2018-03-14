@@ -122,6 +122,11 @@ class Selector extends React.Component {
 }
 
 class Category extends React.Component {
+    state={
+        things:''
+    }
+
+
     componentDidMount() {
         const { category } = this.props
         if (category.length < 1) {
@@ -213,6 +218,7 @@ class Category extends React.Component {
                     )}
                 </LoadingArray>
                 <Selector
+
                     handleOK={this.handleOk}
                     exercise={this.props.exercise}
                     ref={node => {

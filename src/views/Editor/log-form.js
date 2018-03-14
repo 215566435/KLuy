@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon, Form, Input } from 'antd'
+import { Button, Icon, Form, Input, DatePicker } from 'antd'
 import { connect } from 'react-redux'
 import './index.less'
 
@@ -34,7 +34,10 @@ class LogForm extends React.Component {
         e.preventDefault()
         this.props.dispatch({
             type: 'addExerciseSet',
-            payload: this.state.excersiseDetail
+            payload: {
+                sets: this.state.excersiseDetail,
+                exerciseID: this.props.currentID
+            }
         })
     }
     handleDelete = id => {
@@ -148,7 +151,6 @@ class LogForm extends React.Component {
                         </Button>
                     </FormItem>
                 </Form>
-                
             </div>
         )
     }

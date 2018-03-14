@@ -47,13 +47,14 @@ export default {
             const exmanager = new ExcersiseManager(call)
             const json = yield exmanager.addExerciseSet({
                 name: 'benchpress',
-                date: '2016-8-15',
-                sets: payload
+                date: Date.now(),
+                sets: payload.sets,
+                exerciseID: payload.exerciseID
             })
             if (json.Success) {
                 message.success('加入成功')
             } else {
-                message.success('加入失败')
+                message.error('加入失败')
             }
         },
         *addExercise({ put, call }, { payload }) {

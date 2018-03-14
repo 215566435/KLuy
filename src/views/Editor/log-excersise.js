@@ -28,20 +28,20 @@ export const Curd = () => {
         </Dropdown>
     )
 }
-
 const dateFormat = 'YYYY/MM/DD'
 const TabPane = Tabs.TabPane
 export const Editor = props => {
+    
+    const currentExercise = props.exercise.find(
+        i => i.id === props.currentID
+    )
+
     return (
         <div style={{ width: 500 }}>
             <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 22 }}>name</div>
+                <div style={{ fontSize: 22 }}>{currentExercise?currentExercise.name:""}</div>
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="新增" key="1">
-                        <DatePicker
-                            defaultValue={moment('2015/01/01', dateFormat)}
-                            format={dateFormat}
-                        />
                         <LogForm {...props} />
                     </TabPane>
                     <TabPane tab="历史" key="2">
@@ -88,14 +88,12 @@ class Exercise extends React.Component {
         })
     }
     handleCancel = e => {
-        console.log(e)
         this.setState({
             visible: false
         })
     }
     onSubmit = values => {
-        this.props.dispatch({type:"addExercise",payload:values})
-
+        this.props.dispatch({ type: 'addExercise', payload: values })
     }
 
     render() {
@@ -127,7 +125,10 @@ class Exercise extends React.Component {
                     }}
                 >
                     {this.state.visible ? (
-                        <Editor currentID={this.state.currentID} />
+                        <Editor
+                            currentID={this.state.currentID}
+                            {...this.props}
+                        />
                     ) : null}
                 </Modal>
             </div>

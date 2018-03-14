@@ -9,50 +9,6 @@ import { Modal, Input, Button, Select, Radio } from 'antd'
 
 const Option = Select.Option
 
-class ModalWrapper extends React.Component {
-    state = {
-        visible: false,
-        currentValue: ''
-    }
-
-    open = () => {
-        this.setState({
-            visible: true
-        })
-    }
-
-    handleClose = () => {
-        this.setState({
-            visible: false
-        })
-    }
-    handleOk = () => {
-        this.setState({
-            visible: false
-        })
-
-        this.props.handleOK && this.props.handleOK()
-    }
-
-    render() {
-        return (
-            <Modal
-                title="Basic Modal"
-                visible={this.state.visible}
-                onOk={this.handleOk}
-                onCancel={this.handleClose}
-                width={600}
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center'
-                }}
-            >
-                {this.props.children}
-            </Modal>
-        )
-    }
-}
-
 class Selector extends React.Component {
     state = {
         visible: false,
@@ -122,10 +78,11 @@ class Selector extends React.Component {
 }
 
 class Category extends React.Component {
-    state={
-        things:''
+    state = {
+        things: '',
+        visible: false,
+        currentID: 0
     }
-
 
     componentDidMount() {
         const { category } = this.props
@@ -140,7 +97,7 @@ class Category extends React.Component {
     onHandleExcersiseClick = id => {
         this.setState({
             visible: true,
-            modal: <Editor />
+            currentID: id
         })
     }
     handleAddCate = () => {
@@ -165,8 +122,14 @@ class Category extends React.Component {
         })
     }
 
+    handleExerciseOk = () => {
+        this.setState({
+            visible: false
+        })
+    }
+
     render() {
-        const { category, type } = this.props
+        const { category, type, exercise } = this.props
         return (
             <div>
                 {type !== 'exercise' ? (
@@ -190,9 +153,27 @@ class Category extends React.Component {
                         />
                     </div>
                 ) : (
-                    <Button type="primary" onClick={this.handleAddExercise}>
-                        添加动作
-                    </Button>
+                    <div>
+                        <Button type="primary" onClick={this.handleAddExercise}>
+                            添加动作
+                        </Button>
+                        <Modal
+                            title="运动详情"
+                            footer={null}
+                            visible={this.state.visible}
+                            onOk={this.handleExerciseOk}
+                            onCancel={this.handleExerciseOk}
+                            width={600}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            {this.state.visible ? (
+                                <Editor currentID={this.state.currentID} />
+                            ) : null}
+                        </Modal>
+                    </div>
                 )}
 
                 <LoadingArray array={category}>
@@ -218,7 +199,6 @@ class Category extends React.Component {
                     )}
                 </LoadingArray>
                 <Selector
-
                     handleOK={this.handleOk}
                     exercise={this.props.exercise}
                     ref={node => {

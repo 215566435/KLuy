@@ -25,13 +25,16 @@ const DropDown = ({ onDelete }) => {
 }
 
 const HistoryBlock = ({ time, item = {}, onDelete }) => {
+    const time_format = moment(parseInt(item.date, 10)).format(
+        'YYYY-MM-DD HH:mm:ss'
+    )
+
+
     return (
         <div className="history-block">
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ fontSize: 15 }}>
-                    {moment(parseInt(item.date, 10)).format(
-                        'YYYY-MM-DD HH:mm:ss'
-                    )}
+                <div style={{ color: '#bfbfbf' }}>
+                    {time_format}
                 </div>
                 <DropDown
                     onDelete={() => {

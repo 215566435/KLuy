@@ -63,6 +63,13 @@ export default {
                 categoryName: payload,
                 categoryID: Date.now()
             })
+            yield put({
+                type: 'mapCategory',
+                payload: {
+                    list: addType(json.payload.category, 'category'),
+                    type: 'category'
+                }
+            })
         },
         *bindExerciseToCate({ put, call }, { payload }) {
             const Category = new CategoryManager(call)
@@ -70,8 +77,33 @@ export default {
                 categoryID: payload.categoryID,
                 exerciseID: payload.id
             })
-        },
 
+            yield put({
+                type: 'mapCategory/Excersise',
+                payload: {
+                    list: addType(json.payload.exercise, 'exercise'),
+                    type: 'exercise',
+                    categoryID: payload.categoryID
+                }
+            })
+        },
+        *deleteFromCategory({ put, call }, { payload }) {
+            const Category = new CategoryManager(call)
+            console.log(payload)
+            const json = yield Category.fetch('/category/exercise/remove', {
+                categoryID: payload.categoryID,
+                exerciseID: payload.id
+            })
+
+            yield put({
+                type: 'mapCategory/Excersise',
+                payload: {
+                    list: addType(json.payload.exercise, 'exercise'),
+                    type: 'exercise',
+                    categoryID: payload.categoryID
+                }
+            })
+        },
         *fetchExcersise({ put, call }, { payload }) {
             yield put({
                 type: 'mapCategory/Excersise',

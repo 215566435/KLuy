@@ -30,12 +30,12 @@ const LogMenu = ({ onSelect, routerState }) => {
                 <Menu.Item key="category">
                     <Link to="/workout/category">类目</Link>
                 </Menu.Item>
-                <Menu.Item key="tool">
+                {/* <Menu.Item key="tool">
                     <Link to="/workout/tool">工具</Link>
                 </Menu.Item>
                 <Menu.Item key="about">
                     <Link to="/workout/about">关于</Link>
-                </Menu.Item>
+                </Menu.Item> */}
             </Menu>
         </div>
     )

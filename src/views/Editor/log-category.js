@@ -24,12 +24,14 @@ class Selector extends React.Component {
 
     handleClose = () => {
         this.setState({
-            visible: false
+            visible: false,
+            currentValue:''
         })
     }
     handleOk = () => {
         this.setState({
-            visible: false
+            visible: false,
+            currentValue:''
         })
         const { exercise } = this.props
         const key = this.state.currentValue
@@ -65,6 +67,7 @@ class Selector extends React.Component {
                     display: 'flex',
                     justifyContent: 'center'
                 }}
+                destroyOnClose={true}
             >
                 <LoadingArrayToChildren array={newExercise}>
                     {item => {
@@ -160,6 +163,28 @@ class Category extends React.Component {
         })
     }
 
+    handleDeleteFromCategory = (e, id) => {
+        e.stopPropagation()
+
+        console.log('当前的cate',this.props.currentCategory)
+        confirm({
+            title: '你确定从这个分类中移除这个动作吗?',
+            content: '移除操作不可逆，你确定移除吗?',
+            onOk: () => {
+                this.props.dispatch({
+                    type: 'deleteFromCategory',
+                    payload: {
+                        id: id,
+                        categoryID: this.props.currentCategory.categoryID
+                    }
+                })
+            },
+            okText: '确定',
+            cancelText: '取消',
+            onCancel() {}
+        })
+    }
+
     render() {
         const {
             category,
@@ -232,6 +257,7 @@ class Category extends React.Component {
                                 <Editor
                                     currentID={this.state.currentID}
                                     exercise={categoryExcersise}
+                                    dispatch={this.props.dispatch}
                                 />
                             ) : null}
                         </Modal>
@@ -262,10 +288,15 @@ class Category extends React.Component {
                                 icon="close"
                                 shape="circle"
                                 onClick={e =>
-                                    this.handleDeleteCategory(
-                                        e,
-                                        item.categoryID
-                                    )
+                                    item.type === 'category'
+                                        ? this.handleDeleteCategory(
+                                              e,
+                                              item.categoryID
+                                          )
+                                        : this.handleDeleteFromCategory(
+                                              e,
+                                              item.id
+                                          )
                                 }
                             />
                         </Clickble>

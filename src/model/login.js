@@ -13,6 +13,8 @@ export default {
         },
         logout(state) {
             localStorage.removeItem('token')
+            // location.href = '/'
+            window.location.href = '/'
             return { ...state }
         }
     },

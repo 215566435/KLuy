@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon, Form, Input, DatePicker } from 'antd'
+import { Button, Icon, Form, Input } from 'antd'
 import { connect } from 'react-redux'
 import './index.less'
 
@@ -40,11 +40,12 @@ class LogForm extends React.Component {
             }
         })
     }
-    handleDelete = id => {
+    handleDelete = (e,index) => {
+        e.preventDefault()
         this.setState({
             excersiseDetail: this.state.excersiseDetail.filter(
-                (item, index) => {
-                    if (index !== id) {
+                (item, idx) => {
+                    if (idx !== index) {
                         return item
                     }
                     return null
@@ -69,7 +70,7 @@ class LogForm extends React.Component {
                         htmlType="submit"
                         shape="circle"
                         icon="close"
-                        onClick={() => this.handleDelete(index)}
+                        onClick={(e) => this.handleDelete(e,index)}
                     />
                 </div>
             )

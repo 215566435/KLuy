@@ -34,19 +34,16 @@ export default {
             })
             const exmanager = new ExcersiseManager(call)
             const json = yield exmanager.getExcersise('/exercise')
-            if (json.Success) {
-                yield put({
-                    type: 'bindExcersise',
-                    payload: json.payload.exercise
-                })
-            } else {
-                message.error(json.message)
-            }
+            yield put({
+                type: 'bindExcersise',
+                payload: json.payload.exercise
+            })
         },
         *addExerciseSet({ put, call }, { payload }) {
+            console.log(payload)
+
             const exmanager = new ExcersiseManager(call)
             const json = yield exmanager.addExerciseSet({
-                name: 'benchpress',
                 date: Date.now(),
                 sets: payload.sets,
                 exerciseID: payload.exerciseID
@@ -56,6 +53,27 @@ export default {
             } else {
                 message.error('加入失败')
             }
+        },
+        *deleteExercise({ put, call }, { payload }) {
+            const exmanager = new ExcersiseManager(call)
+            const json = yield exmanager.getExcersise(
+                '/exercise/delete/' + payload
+            )
+            yield put({
+                type: 'bindExcersise',
+                payload: json.payload.exercise
+            })
+        },
+        *deleteHistory({ put, call }, { payload }) {
+            const exmanager = new ExcersiseManager(call)
+            const json = yield exmanager.fetch(
+                '/exercise/history/delete',
+                payload
+            )
+            yield put({
+                type: 'bindHistory',
+                payload: json.payload
+            })
         },
         *addExercise({ put, call }, { payload }) {
             const exmanager = new ExcersiseManager(call)

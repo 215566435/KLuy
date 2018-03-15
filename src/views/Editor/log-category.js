@@ -5,9 +5,10 @@ import {
     LoadingArray,
     LoadingArrayToChildren
 } from '../../component/LoadingHoc'
-import { Modal, Input, Button, Select, Radio } from 'antd'
+import { Modal, Input, Button, Select, Radio, Icon } from 'antd'
 
 const Option = Select.Option
+const confirm = Modal.confirm
 
 class Selector extends React.Component {
     state = {
@@ -32,8 +33,8 @@ class Selector extends React.Component {
         })
         const { exercise } = this.props
         const key = this.state.currentValue
-
-        this.props.handleOK && this.props.handleOK(exercise[key])
+        const oneItem = exercise.find(i => i.id + '' === key)
+        this.props.handleOK && this.props.handleOK(oneItem)
     }
 
     handleChange = key => {
@@ -44,9 +45,18 @@ class Selector extends React.Component {
 
     render() {
         const { exercise } = this.props
+
+        const newExercise = exercise
+            ? exercise.filter(item => {
+                  if (!item.categoryID) {
+                      return item
+                  }
+              })
+            : exercise
+
         return (
             <Modal
-                title="Basic Modal"
+                title="添加动作到类目"
                 visible={this.state.visible}
                 onOk={this.handleOk}
                 onCancel={this.handleClose}
@@ -56,7 +66,7 @@ class Selector extends React.Component {
                     justifyContent: 'center'
                 }}
             >
-                <LoadingArrayToChildren array={exercise}>
+                <LoadingArrayToChildren array={newExercise}>
                     {item => {
                         return (
                             <Select
@@ -128,8 +138,36 @@ class Category extends React.Component {
         })
     }
 
+    handleBackToCate = () => {
+        this.props.dispatch({ type: 'fetchCategory' })
+    }
+
+    handleDeleteCategory = (e, categoryID) => {
+        e.stopPropagation()
+
+        confirm({
+            title: '你确定删除这个分类吗?',
+            content: '删除操作不可逆，你确定删除吗?',
+            onOk: () => {
+                this.props.dispatch({
+                    type: 'deleteCategory',
+                    payload: categoryID
+                })
+            },
+            okText: '确定',
+            cancelText: '取消',
+            onCancel() {}
+        })
+    }
+
     render() {
-        const { category, type, exercise } = this.props
+        const {
+            category,
+            type,
+            exercise,
+            currentCategory,
+            categoryExcersise
+        } = this.props
         return (
             <div>
                 {type !== 'exercise' ? (
@@ -154,9 +192,30 @@ class Category extends React.Component {
                     </div>
                 ) : (
                     <div>
-                        <Button type="primary" onClick={this.handleAddExercise}>
-                            添加动作
-                        </Button>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                marginBottom: 12
+                            }}
+                        >
+                            <Button
+                                icon={'arrow-left'}
+                                shape={'circle'}
+                                onClick={this.handleBackToCate}
+                            />
+                            <h2>
+                                {currentCategory
+                                    ? currentCategory.categoryName
+                                    : ''}
+                            </h2>
+                            <Button
+                                type="primary"
+                                onClick={this.handleAddExercise}
+                            >
+                                添加动作
+                            </Button>
+                        </div>
                         <Modal
                             title="运动详情"
                             footer={null}
@@ -170,13 +229,18 @@ class Category extends React.Component {
                             }}
                         >
                             {this.state.visible ? (
-                                <Editor currentID={this.state.currentID} />
+                                <Editor
+                                    currentID={this.state.currentID}
+                                    exercise={categoryExcersise}
+                                />
                             ) : null}
                         </Modal>
                     </div>
                 )}
 
-                <LoadingArray array={category}>
+                <LoadingArray
+                    array={type !== 'exercise' ? category : categoryExcersise}
+                >
                     {item => (
                         <Clickble
                             key={item.id}
@@ -185,9 +249,7 @@ class Category extends React.Component {
                                     ? this.onHandleCategoryClick(
                                           item.categoryID
                                       )
-                                    : this.onHandleExcersiseClick(
-                                          item.categoryID
-                                      )
+                                    : this.onHandleExcersiseClick(item.id)
                             }}
                         >
                             <div>
@@ -195,6 +257,17 @@ class Category extends React.Component {
                                     ? item.categoryName
                                     : item.name}
                             </div>
+                            <Button
+                                type="danger"
+                                icon="close"
+                                shape="circle"
+                                onClick={e =>
+                                    this.handleDeleteCategory(
+                                        e,
+                                        item.categoryID
+                                    )
+                                }
+                            />
                         </Clickble>
                     )}
                 </LoadingArray>
@@ -212,10 +285,8 @@ class Category extends React.Component {
 
 const mapState = state => {
     return {
-        category: state.editor.category,
-        type: state.editor.type,
-        exercise: state.exercise.exercise,
-        categoryID: state.editor.categoryID
+        ...state.editor,
+        exercise: state.exercise.exercise
     }
 }
 

@@ -28,21 +28,34 @@ export default {
                 type: payload.type,
                 categoryID: payload.categoryID
             }
+        },
+        'mapCategory/Excersise'(state, { payload }) {
+            const item = state.category.find(
+                i => i.categoryID === payload.categoryID
+            )
+
+            return {
+                ...state,
+                categoryExcersise: payload.list,
+                type: payload.type,
+                categoryID: payload.categoryID,
+                currentCategory: item
+            }
         }
     },
     effects: {
-        *checkAuth({ put, call }, { payload }) {
-            const user = new UserManager(call)
-            const res = yield user.auth()
-            if (res.status === 'fail') {
-                yield put({
-                    type: 'redirect',
-                    payload: {
-                        redirectPath: '/login',
-                        isRedirect: true
-                    }
-                })
-            }
+        *deleteCategory({ put, call }, { payload }) {
+            const Category = new CategoryManager(call)
+            const json = yield Category.fetch('/category/delete', {
+                categoryID: payload
+            })
+            yield put({
+                type: 'mapCategory',
+                payload: {
+                    list: addType(json.payload.category, 'category'),
+                    type: 'category'
+                }
+            })
         },
         *addCategory({ put, call }, { payload }) {
             const Category = new CategoryManager(call)
@@ -53,15 +66,15 @@ export default {
         },
         *bindExerciseToCate({ put, call }, { payload }) {
             const Category = new CategoryManager(call)
-            console.log(payload)
             const json = yield Category.fetch('/category/bind', {
                 categoryID: payload.categoryID,
                 exerciseID: payload.id
             })
         },
+
         *fetchExcersise({ put, call }, { payload }) {
             yield put({
-                type: 'mapCategory',
+                type: 'mapCategory/Excersise',
                 payload: []
             })
             const Category = new CategoryManager(call)
@@ -69,7 +82,7 @@ export default {
                 '/category/exercise/' + payload
             )
             yield put({
-                type: 'mapCategory',
+                type: 'mapCategory/Excersise',
                 payload: {
                     list: addType(json.payload.exercise, 'exercise'),
                     type: 'exercise',

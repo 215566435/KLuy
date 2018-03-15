@@ -16,3 +16,34 @@
         padding: 80px
     }
 }
+
+.ant-carousel .slick-slide {
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    background: #364d79;
+    overflow: hidden;
+  }
+  
+  .ant-carousel .slick-slide h3 {
+    color: #fff;
+  }
+
+
+  .container{
+    display: flex;
+    flex-flow:column nowrap;
+    width: 1000px;/*任意改变长宽*/
+    height: 600px;
+}
+.parent{
+    display: flex;
+     flex-flow:row nowrap;
+    flex:1 1 0;/*元素弹性*/
+    text-align: center;
+}
+.container .parent:first-child{margin-bottom: 10px;}
+.item{
+    flex:1 1 0;/*元素弹性*/
+}
+.parent .item:first-child{margin-right: 10px;}

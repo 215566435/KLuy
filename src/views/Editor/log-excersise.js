@@ -1,12 +1,14 @@
 import React from 'react'
-import { Menu, Dropdown, Icon, Tabs, DatePicker, Modal, Button } from 'antd'
-import moment from 'moment'
+import { Menu, Dropdown, Icon, Tabs, Modal, Button } from 'antd'
+
 import { connect } from 'react-redux'
 
 import LogForm from './log-form'
 import LogHistory from './log-history'
 import { LoadingArray } from '../../component/LoadingHoc'
 import { AddFields } from './addfield'
+
+const confirm = Modal.confirm
 
 const menu = (
     <Menu>
@@ -28,19 +30,27 @@ export const Curd = () => {
         </Dropdown>
     )
 }
-const dateFormat = 'YYYY/MM/DD'
+
 const TabPane = Tabs.TabPane
 export const Editor = props => {
-    
-    const currentExercise = props.exercise.find(
-        i => i.id === props.currentID
-    )
-
+    const currentExercise = props.exercise.find(i => i.id === props.currentID)
     return (
         <div style={{ width: 500 }}>
             <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 22 }}>{currentExercise?currentExercise.name:""}</div>
-                <Tabs defaultActiveKey="1">
+                <div style={{ fontSize: 22 }}>
+                    {currentExercise ? currentExercise.name : ''}
+                </div>
+                <Tabs
+                    defaultActiveKey="1"
+                    onChange={key => {
+                        if (key === '2') {
+                            props.dispatch({
+                                type: 'fetchHistory',
+                                payload: props.currentID
+                            })
+                        }
+                    }}
+                >
                     <TabPane tab="新增" key="1">
                         <LogForm {...props} />
                     </TabPane>
@@ -95,6 +105,23 @@ class Exercise extends React.Component {
     onSubmit = values => {
         this.props.dispatch({ type: 'addExercise', payload: values })
     }
+    handleDeleteExercise = (e, id) => {
+        e.stopPropagation()
+
+        confirm({
+            title: '你确定删除这个运动吗?',
+            content: '删除操作不可逆，你确定删除吗?',
+            onOk: () => {
+                this.props.dispatch({
+                    type: 'deleteExercise',
+                    payload: id
+                })
+            },
+            okText: '确定',
+            cancelText: '取消',
+            onCancel() {}
+        })
+    }
 
     render() {
         return (
@@ -108,6 +135,14 @@ class Exercise extends React.Component {
                                 onClick={() => this.handleOnClick(item.id)}
                             >
                                 <div>{item.name}</div>
+                                <Button
+                                    type="danger"
+                                    icon="close"
+                                    shape="circle"
+                                    onClick={e =>
+                                        this.handleDeleteExercise(e, item.id)
+                                    }
+                                />
                             </Clickble>
                         )
                     }}
@@ -123,13 +158,9 @@ class Exercise extends React.Component {
                         display: 'flex',
                         justifyContent: 'center'
                     }}
+                    destroyOnClose={true}
                 >
-                    {this.state.visible ? (
-                        <Editor
-                            currentID={this.state.currentID}
-                            {...this.props}
-                        />
-                    ) : null}
+                    <Editor currentID={this.state.currentID} {...this.props} />
                 </Modal>
             </div>
         )

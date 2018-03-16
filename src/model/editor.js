@@ -1,4 +1,3 @@
-import { UserManager } from '../Manager/user'
 import { CategoryManager } from '../Manager/category'
 
 const addType = (array, type) => {

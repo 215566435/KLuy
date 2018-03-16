@@ -35,7 +35,7 @@ const TabPane = Tabs.TabPane
 export const Editor = props => {
     const currentExercise = props.exercise.find(i => i.id === props.currentID)
     return (
-        <div style={{ width: 500 }}>
+        <div style={{ width: '100%' }}>
             <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: 22 }}>
                     {currentExercise ? currentExercise.name : ''}

@@ -18,7 +18,7 @@ const LogMenu = ({ onSelect, routerState }) => {
     const current = url[routerState]
 
     return (
-        <div className="log-menu-warpper" style={{ maxHeight: 192 }}>
+        <div className="log-menu-wrapper" style={{ maxHeight: 192 }}>
             <Menu
                 defaultSelectedKeys={['about']}
                 selectedKeys={[current]}

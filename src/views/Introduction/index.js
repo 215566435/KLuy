@@ -2,8 +2,6 @@ import React from 'react'
 import { Layout, Carousel } from 'antd'
 
 import './index.less'
-import { ArticleArea, ArticleBlock } from '../../component/ArticleBlock'
-import { RecentArea } from '../../component/RecentArea'
 import { connect } from 'react-redux'
 
 const { Content } = Layout

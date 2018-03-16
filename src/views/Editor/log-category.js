@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Clickble, Curd, Editor } from './log-excersise'
+import { Clickble, Editor } from './log-excersise'
 import {
     LoadingArray,
     LoadingArrayToChildren
 } from '../../component/LoadingHoc'
-import { Modal, Input, Button, Select, Radio, Icon } from 'antd'
+import { Modal, Input, Button, Select } from 'antd'
 
 const Option = Select.Option
 const confirm = Modal.confirm
@@ -53,6 +53,7 @@ class Selector extends React.Component {
                   if (!item.categoryID) {
                       return item
                   }
+                  return null
               })
             : exercise
 
@@ -189,7 +190,6 @@ class Category extends React.Component {
         const {
             category,
             type,
-            exercise,
             currentCategory,
             categoryExcersise
         } = this.props
@@ -205,7 +205,7 @@ class Category extends React.Component {
                     >
                         <Input
                             placeholder="类目名称"
-                            style={{ width: 300 }}
+                            style={{ width: '50%' }}
                             ref={input => (this.input = input)}
                         />
                         <Button
@@ -247,7 +247,7 @@ class Category extends React.Component {
                             visible={this.state.visible}
                             onOk={this.handleExerciseOk}
                             onCancel={this.handleExerciseOk}
-                            width={600}
+                            width={'100%'}
                             style={{
                                 display: 'flex',
                                 justifyContent: 'center'

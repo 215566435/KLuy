@@ -5,16 +5,25 @@
     overflow-y: scroll;
 }
 
-.log-wrapper {
-    display: flex;
-    .log-paper {
-        width: 750px;
+@media screen and(min-width:1000px) {
+    .log-wrapper {
+        display: flex;
+        .log-paper {
+            width: 750px;
+        }
+    }
+    .log-menu-wrapper {
+        &:extend(.paperbase);
+        min-width: 200px;
     }
 }
 
-.log-menu-warpper {
-    &:extend(.paperbase);
-    min-width: 200px;
+@media screen and (max-width:500px) {
+    .log-wrapper {
+        .log-paper {
+            width:100%;
+        }
+    }
 }
 
 .CategoryItem {

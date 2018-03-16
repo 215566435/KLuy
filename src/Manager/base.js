@@ -3,11 +3,14 @@ import { message } from 'antd'
 export class BaseManager {
     constructor(call) {
         this.call = call
-        this.domain = 'http://127.0.0.1:7001'
+        this.domain =
+            process.env.NODE_ENV === 'production'
+                ? 'http://www.foveluy.com/api'
+                : 'http://192.168.1.73:7001'
         this.token = localStorage.getItem('token')
     }
 
-    loginFail(status){
+    loginFail(status) {
         if (status === 401) {
             message.error('登陆失效，请重新登陆')
             setTimeout(() => {

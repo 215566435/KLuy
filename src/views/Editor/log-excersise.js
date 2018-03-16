@@ -92,7 +92,6 @@ class Exercise extends React.Component {
     }
 
     handleOk = e => {
-        console.log(e)
         this.setState({
             visible: false
         })
@@ -110,7 +109,7 @@ class Exercise extends React.Component {
 
         confirm({
             title: '你确定删除这个运动吗?',
-            content: '删除操作不可逆，你确定删除吗?',
+            content: '删除操作不可逆，会将该动作下所有的记录全部删除，你确定删除吗?',
             onOk: () => {
                 this.props.dispatch({
                     type: 'deleteExercise',

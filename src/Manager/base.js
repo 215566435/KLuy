@@ -6,13 +6,14 @@ export class BaseManager {
         this.domain =
             process.env.NODE_ENV === 'production'
                 ? 'http://www.foveluy.com/api'
-                : 'http://192.168.1.73:7001'
+                : 'http://192.168.1.73:7001/api'
         this.token = localStorage.getItem('token')
     }
 
     loginFail(status) {
         if (status === 401) {
             message.error('登陆失效，请重新登陆')
+            localStorage.removeItem('token')
             setTimeout(() => {
                 window.location.href = '/login'
             }, 2000)

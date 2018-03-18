@@ -34,8 +34,8 @@ class addfields extends React.Component {
         const passwordError =
             isFieldTouched('name') && getFieldError('name')
         return (
-            <div>
-                <Form layout="inline" onSubmit={this.handleSubmit}>
+            <div className='exercise-addfield'>
+                <Form layout="inline" onSubmit={this.handleSubmit} >
                     <FormItem
                         validateStatus={userNameError ? 'error' : ''}
                         help={userNameError || ''}
@@ -46,6 +46,7 @@ class addfields extends React.Component {
                             ]
                         })(
                             <Input
+                            className='exercise-input'
                                 prefix={
                                     <Icon
                                         type="tag-o"
@@ -66,6 +67,7 @@ class addfields extends React.Component {
                             ]
                         })(
                             <Input
+                                className='exercise-input'
                                 prefix={
                                     <Icon
                                         type="tag-o"
@@ -78,6 +80,7 @@ class addfields extends React.Component {
                     </FormItem>
                     <FormItem>
                         <Button
+                            className='exercise-add'
                             type="primary"
                             shape="circle"
                             icon="plus"

@@ -40,17 +40,15 @@ class LogForm extends React.Component {
             }
         })
     }
-    handleDelete = (e,index) => {
+    handleDelete = (e, index) => {
         e.preventDefault()
         this.setState({
-            excersiseDetail: this.state.excersiseDetail.filter(
-                (item, idx) => {
-                    if (idx !== index) {
-                        return item
-                    }
-                    return null
+            excersiseDetail: this.state.excersiseDetail.filter((item, idx) => {
+                if (idx !== index) {
+                    return item
                 }
-            )
+                return null
+            })
         })
     }
 
@@ -70,7 +68,7 @@ class LogForm extends React.Component {
                         htmlType="submit"
                         shape="circle"
                         icon="close"
-                        onClick={(e) => this.handleDelete(e,index)}
+                        onClick={e => this.handleDelete(e, index)}
                     />
                 </div>
             )
@@ -134,6 +132,7 @@ class LogForm extends React.Component {
                     </FormItem>
                     <FormItem>
                         <Button
+                            className="exercise-add"
                             type="primary"
                             shape="circle"
                             icon="plus"

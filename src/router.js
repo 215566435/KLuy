@@ -39,10 +39,10 @@ const Headed = ({ routerState, token, dispatch }) => {
             </Menu.Item>,
             <Menu.Item key="2">
                 <Link to="/workout/exercise">记录</Link>
-            </Menu.Item>,
-            <Menu.Item key="3">
-                <Link to="/console">FAQ</Link>
             </Menu.Item>
+            // <Menu.Item key="3">
+            //     <Link to="/console">FAQ</Link>
+            // </Menu.Item>
         ]
     }
 

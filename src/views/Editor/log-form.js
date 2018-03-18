@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon, Form, Input } from 'antd'
+import { Button, Icon, Form, Input,message } from 'antd'
 import { connect } from 'react-redux'
 import './index.less'
 
@@ -75,7 +75,12 @@ class WeightReps extends React.Component {
     }
 
     onSubmit = e => {
-        this.props.onSubmit && this.props.onSubmit(e, this.state)
+        if(this.state.weight >0 &&this.state.reps>0){
+            this.props.onSubmit && this.props.onSubmit(e, this.state)
+        }else{
+            message.error('请输入有效的重量和次数')
+        }
+        
     }
 
     render() {

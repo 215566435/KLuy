@@ -7,13 +7,44 @@
 
 @media screen and (max-width:500px) {
     .content-container {
-        padding: 0px
+        padding: 0px;
+    }
+    .container {
+        text-align: center;
+        margin-top: 12px;
+    }
+    .parent{
+        margin-top: 22px;
     }
 }
 
 @media screen and (min-width:1000px) {
     .content-container {
-        padding: 80px
+        padding: 80px;
+    }
+    .container {
+        display: flex;
+        flex-flow: column nowrap;
+        width: 1000px;
+        /*任意改变长宽*/
+        height: 600px;
+    }
+    .parent {
+        display: flex;
+        flex-flow: row nowrap;
+        flex: 1 1 0;
+        /*元素弹性*/
+        text-align: center;
+    }
+    .container .parent:first-child {
+        margin-bottom: 10px;
+    }
+    .item {
+        flex: 1 1 0;
+        /*元素弹性*/
+    }
+    .parent .item:first-child {
+        margin-right: 10px;
     }
 }
 
@@ -23,27 +54,8 @@
     line-height: 160px;
     background: #364d79;
     overflow: hidden;
-  }
-  
-  .ant-carousel .slick-slide h3 {
+}
+
+.ant-carousel .slick-slide h3 {
     color: #fff;
-  }
-
-
-  .container{
-    display: flex;
-    flex-flow:column nowrap;
-    width: 1000px;/*任意改变长宽*/
-    height: 600px;
 }
-.parent{
-    display: flex;
-     flex-flow:row nowrap;
-    flex:1 1 0;/*元素弹性*/
-    text-align: center;
-}
-.container .parent:first-child{margin-bottom: 10px;}
-.item{
-    flex:1 1 0;/*元素弹性*/
-}
-.parent .item:first-child{margin-right: 10px;}

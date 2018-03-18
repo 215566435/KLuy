@@ -9,6 +9,104 @@ function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field])
 }
 
+const Steper = ({ onAdd, number, type, decrease }) => {
+    return (
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: 12
+            }}
+        >
+            <div style={{ marginRight: 12 }}>{number}</div>
+            <div>
+                <div>
+                    <Button
+                        onClick={() => {
+                            onAdd && onAdd({ type: type, payload: 1 })
+                        }}
+                    >
+                        +1
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            onAdd && onAdd({ type: type, payload: 10 })
+                        }}
+                    >
+                        +10
+                    </Button>
+                </div>
+                <div>
+                    <Button
+                        onClick={() => {
+                            decrease && decrease({ type: type, payload: -1 })
+                        }}
+                    >
+                        -1
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            decrease && decrease({ type: type, payload: -10 })
+                        }}
+                    >
+                        -10
+                    </Button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+class WeightReps extends React.Component {
+    state = {
+        weight: 0,
+        reps: 0
+    }
+    onAdd = ({ type, payload }) => {
+        this.setState({
+            [type]: this.state[type] + payload
+        })
+    }
+    decrease = ({ type, payload }) => {
+        this.setState({
+            [type]: this.state[type] + payload
+        })
+    }
+
+    onSubmit = e => {
+        this.props.onSubmit && this.props.onSubmit(e, this.state)
+    }
+
+    render() {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button
+                    className="exercise-add"
+                    type="primary"
+                    shape="circle"
+                    icon="plus"
+                    onClick={this.onSubmit}
+                />
+                <div>
+                    <Steper
+                        number={`${this.state.reps}次`}
+                        type="reps"
+                        onAdd={this.onAdd}
+                        decrease={this.decrease}
+                    />
+                    <Steper
+                        number={`${this.state.weight}kg`}
+                        type="weight"
+                        onAdd={this.onAdd}
+                        decrease={this.decrease}
+                    />
+                </div>
+            </div>
+        )
+    }
+}
+
 class LogForm extends React.Component {
     state = {
         excersiseDetail: []
@@ -18,15 +116,11 @@ class LogForm extends React.Component {
         // To disabled submit button at the beginning.
         this.props.form.validateFields()
     }
-    handleAdd = e => {
+    handleAdd = (e, value) => {
         e.preventDefault()
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values)
-                this.setState({
-                    excersiseDetail: [...this.state.excersiseDetail, values]
-                })
-            }
+
+        this.setState({
+            excersiseDetail: [...this.state.excersiseDetail, value]
         })
     }
 
@@ -89,68 +183,15 @@ class LogForm extends React.Component {
             isFieldTouched('weight') && getFieldError('weight')
         return (
             <div>
-                <Form layout="inline" onSubmit={this.handleSubmit}>
-                    <FormItem
-                        validateStatus={userNameError ? 'error' : ''}
-                        help={userNameError || ''}
-                    >
-                        {getFieldDecorator('reps', {
-                            rules: [
-                                { required: true, message: '请输入次数(数字)' }
-                            ]
-                        })(
-                            <Input
-                                prefix={
-                                    <Icon
-                                        type="tag-o"
-                                        style={{ color: 'rgba(0,0,0,.25)' }}
-                                    />
-                                }
-                                placeholder="次数"
-                            />
-                        )}
-                    </FormItem>
-                    <FormItem
-                        validateStatus={passwordError ? 'error' : ''}
-                        help={passwordError || ''}
-                    >
-                        {getFieldDecorator('weight', {
-                            rules: [
-                                { required: true, message: '请输入重量(数字)' }
-                            ]
-                        })(
-                            <Input
-                                prefix={
-                                    <Icon
-                                        type="tag-o"
-                                        style={{ color: 'rgba(0,0,0,.25)' }}
-                                    />
-                                }
-                                placeholder="重量kg"
-                            />
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        <Button
-                            className="exercise-add"
-                            type="primary"
-                            shape="circle"
-                            icon="plus"
-                            onClick={this.handleAdd}
-                            disabled={hasErrors(getFieldsError())}
-                        />
-                    </FormItem>
-                    {this.renderExcersiseDetail()}
-                    <FormItem>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            onClick={this.handleSubmit}
-                        >
-                            提交
-                        </Button>
-                    </FormItem>
-                </Form>
+                <WeightReps onSubmit={this.handleAdd} />
+                {this.renderExcersiseDetail()}
+                <Button
+                    type="primary"
+                    htmlType="submit"
+                    onClick={this.handleSubmit}
+                >
+                    提交
+                </Button>
             </div>
         )
     }
